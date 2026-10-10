@@ -1,0 +1,595 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Оплата нейросетей из России</title>
+<style>
+/* Layout: пастельный лавандовый стиль гайда «AI-мультики» — герой по центру, секции из карточек, финальный блок-переход на платный гайд */
+:root{
+  color-scheme:light;
+  --lavender:#B7A6FF; --periwinkle:#7AA7FF; --pink:#FFB6D6;
+  --slivo:#6B5ACD; --ink:#3A3358; --ink-soft:#6C6690; --line:rgba(107,90,205,.14);
+  --card:#ffffff; --soft:#F4F0FF; --soft2:#FBF9FF;
+  --shadow:0 18px 50px -22px rgba(107,90,205,.45);
+  --radius:26px;
+  --ok:#2E9E7A; --warn:#D9822B; --bad:#D2557A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Segoe UI','Helvetica Neue',system-ui,Arial,sans-serif; color:var(--ink);
+  background:
+    radial-gradient(1100px 600px at 12% -5%, #E4DBFF 0%, transparent 55%),
+    radial-gradient(1000px 600px at 100% 8%, #DCEBFF 0%, transparent 50%),
+    radial-gradient(900px 700px at 50% 120%, #FFE6F0 0%, transparent 55%),
+    linear-gradient(180deg,#F6F2FF 0%, #FBF7FF 40%, #FFF7FA 100%);
+  background-color:#F6F2FF;
+  line-height:1.62; -webkit-font-smoothing:antialiased; font-size:16px;
+}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:22px}
+.accent{font-family:'Segoe Script','Comic Sans MS',cursive}
+
+.blob{position:fixed;border-radius:50%;filter:blur(6px);opacity:.5;z-index:0;pointer-events:none}
+.b1{width:120px;height:120px;top:18%;left:4%;background:radial-gradient(circle at 35% 30%,#fff,#C7B8FF)}
+.b2{width:80px;height:80px;top:52%;right:5%;background:radial-gradient(circle at 35% 30%,#fff,#A7D0FF)}
+.b3{width:64px;height:64px;top:78%;left:8%;background:radial-gradient(circle at 35% 30%,#fff,#FFC7DF)}
+.wrap,section{position:relative;z-index:1}
+
+.hero{padding-block:64px 30px;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.75);
+  border:1px solid var(--line);color:var(--slivo);font-weight:700;font-size:13px;letter-spacing:.14em;
+  text-transform:uppercase;padding:8px 16px;border-radius:100px;box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+h1{font-size:clamp(32px,6vw,58px);line-height:1.07;font-weight:800;margin:22px 0 10px;letter-spacing:-.02em;text-wrap:balance;
+  background:linear-gradient(120deg,#6B5ACD 0%, #7AA7FF 55%, #FF9EC7 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:clamp(16px,2.2vw,20px);color:var(--ink-soft);max-width:660px;margin:0 auto 26px}
+.hero .tagline{font-size:clamp(20px,3.4vw,28px);color:var(--slivo);margin-top:6px}
+.pillrow{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
+.pill{background:#fff;border:1px solid var(--line);border-radius:100px;padding:9px 16px;font-weight:600;font-size:14px;
+  color:var(--ink);box-shadow:0 8px 24px -14px rgba(107,90,205,.6)}
+.pill span{margin-right:6px}
+a.pill{text-decoration:none;transition:transform .2s ease}
+a.pill:hover{transform:translateY(-2px)}
+a.pill:focus-visible{outline:3px solid var(--periwinkle);outline-offset:2px}
+.hero-note{max-width:720px;margin:26px auto 0;text-align:left}
+
+section{padding-block:44px}
+.sec-tag{display:inline-block;font-weight:800;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--periwinkle);margin-bottom:8px}
+h2{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.12;margin-bottom:8px;color:var(--ink);text-wrap:balance}
+.sub{color:var(--ink-soft);font-size:16px;max-width:680px;margin-bottom:26px}
+
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);
+  transition:transform .25s ease, box-shadow .25s ease;min-width:0}
+.card:hover{transform:translateY(-4px);box-shadow:0 26px 60px -24px rgba(107,90,205,.55)}
+.chip{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:14px;
+  background:linear-gradient(140deg,#EDE7FF,#DCEBFF);box-shadow:inset 0 0 0 1px rgba(255,255,255,.7)}
+.card h3{font-size:19px;font-weight:800;margin-bottom:6px;text-wrap:balance}
+.card p{font-size:14.5px;color:var(--ink-soft)}
+.card .meta{margin-top:12px;font-size:13px;font-weight:700;color:var(--slivo)}
+.lvl{display:inline-block;font-size:12px;font-weight:800;color:var(--slivo);background:#F0ECFF;padding:4px 12px;border-radius:100px;margin-bottom:10px;letter-spacing:.02em}
+.big{font-size:30px;font-weight:800;line-height:1.15;background:linear-gradient(120deg,#6B5ACD,#7AA7FF);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.breakdown{list-style:none;margin-top:14px;display:grid;gap:8px}
+.breakdown li{font-size:13.5px;color:var(--ink-soft);padding-left:20px;position:relative;line-height:1.45}
+.breakdown li:before{content:'•';position:absolute;left:4px;color:var(--periwinkle);font-weight:800}
+.breakdown li.no:before{content:'✕';left:2px;color:var(--bad);font-size:12px}
+.breakdown li.yes:before{content:'✓';left:2px;color:var(--ok)}
+
+/* способы */
+.tool{display:flex;gap:16px;align-items:flex-start}
+.tool > div:last-child{min-width:0}
+.tool .badge{flex:0 0 auto;width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:20px;color:#fff;box-shadow:var(--shadow)}
+.tool h3{font-size:18px}
+.tag-role{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  padding:4px 10px;border-radius:100px;background:#F0ECFF;color:var(--slivo);margin-bottom:8px}
+.tag-role.new{background:#E3F6EE;color:var(--ok)}
+.suits{display:inline-block;font-size:12px;font-weight:800;color:#fff;background:linear-gradient(120deg,#8E7BFF,#7AA7FF);
+  padding:4px 12px;border-radius:100px;margin-bottom:10px;letter-spacing:.02em}
+.suits.pink{background:linear-gradient(120deg,#FF9EC7,#FFB6D6)}
+.suits.blue{background:linear-gradient(120deg,#7ACBFF,#7AA7FF)}
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.pc ul{list-style:none;display:grid;gap:5px;align-content:start}
+.pc li{font-size:13px;color:var(--ink-soft);padding-left:20px;position:relative;line-height:1.45}
+.pc .plus li:before{content:'+';position:absolute;left:3px;color:var(--ok);font-weight:800}
+.pc .minus li:before{content:'–';position:absolute;left:3px;color:var(--bad);font-weight:800}
+.pc b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;color:var(--slivo)}
+.cost{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin:4px 0 12px;padding:10px 14px;border-radius:14px;background:var(--soft2);border:1px solid var(--line)}
+.cost b{font-size:18px;font-weight:800;color:var(--slivo);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cost span{font-size:12.5px;color:var(--ink-soft)}
+.agg .btn{margin-top:14px;padding:12px 22px;font-size:14.5px}
+.btn.pink{background:linear-gradient(120deg,#FF9EC7,#FFB6D6)}
+.btn.blue{background:linear-gradient(120deg,#7ACBFF,#7AA7FF)}
+.nov{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:#E3F6EE;color:var(--ok);margin-bottom:8px}
+.lock a{color:var(--slivo)}
+.lock{margin-top:14px;font-size:13.5px;color:var(--slivo);background:var(--soft);border:1.5px dashed rgba(107,90,205,.35);
+  border-radius:14px;padding:11px 14px;font-weight:600;line-height:1.5}
+
+/* таблицы */
+.tablecard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:640px}
+th,td{padding:14px 18px;text-align:left;vertical-align:top}
+thead th{background:linear-gradient(120deg,#EDE7FF,#DCEBFF);color:var(--slivo);font-weight:800;font-size:13px;letter-spacing:.03em;text-transform:uppercase}
+tbody tr{border-top:1px solid var(--line)}
+tbody tr:nth-child(even){background:var(--soft2)}
+td strong{color:var(--ink)}
+.money{font-weight:800;color:var(--slivo);white-space:nowrap;font-variant-numeric:tabular-nums}
+.dot{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:13px;white-space:nowrap}
+.dot:before{content:'';width:9px;height:9px;border-radius:50%;background:currentColor;flex:0 0 auto}
+.dot.ok{color:var(--ok)} .dot.mid{color:var(--warn)} .dot.bad{color:var(--bad)}
+.subhead{font-size:20px;font-weight:800;margin:30px 0 14px;color:var(--ink)}
+
+.callout{background:linear-gradient(135deg,#FFF1F6,#F3EEFF);border:1px solid var(--line);border-radius:var(--radius);
+  padding:26px 28px;box-shadow:var(--shadow);display:flex;gap:18px;align-items:flex-start}
+.callout > div:last-child{min-width:0}
+.callout .ic{font-size:30px}
+.callout h3{font-size:18px;margin-bottom:6px;color:var(--slivo)}
+.callout p{font-size:14.5px;color:var(--ink-soft)}
+.callout.warn{background:linear-gradient(135deg,#FFF4EC,#FBEFFF)}
+
+/* переход на платный гайд */
+.offer{background:#fff;border:1px solid var(--line);border-radius:32px;box-shadow:0 30px 70px -30px rgba(107,90,205,.6);
+  display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);overflow:hidden}
+.offer .l{padding:34px 34px 30px}
+.offer .r{padding:34px 30px;background:linear-gradient(150deg,#EDE7FF,#DCEBFF 60%,#FFE6F0);display:flex;flex-direction:column;justify-content:center;gap:12px;text-align:center}
+.offer h2{margin-bottom:10px}
+.offer .inside{list-style:none;display:grid;gap:10px;margin-top:18px}
+.offer .inside li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--ink);font-weight:600;line-height:1.45}
+.offer .inside li span.m{flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:linear-gradient(140deg,#8E7BFF,#7AA7FF);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+.price{font-size:52px;font-weight:800;line-height:1;color:var(--slivo);font-variant-numeric:tabular-nums}
+.price small{font-size:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:15px 26px;border-radius:100px;
+  background:linear-gradient(120deg,#8E7BFF,#7AA7FF);color:#fff;font-weight:800;font-size:16px;text-decoration:none;
+  box-shadow:0 12px 26px -12px rgba(107,90,205,.85);transition:transform .2s ease, box-shadow .2s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 34px -14px rgba(107,90,205,.95)}
+.btn:focus-visible{outline:3px solid var(--slivo);outline-offset:3px}
+.small{font-size:13px;color:var(--ink-soft)}
+
+footer{margin-top:40px;padding-block:40px 60px;text-align:center}
+.footbar{background:linear-gradient(120deg,#8E7BFF,#7AA7FF);border-radius:var(--radius);padding:34px 28px;color:#fff;box-shadow:var(--shadow)}
+.footbar .accent{font-size:26px;opacity:.95}
+.footbar h3{font-size:24px;font-weight:800;margin:6px 0 8px}
+.footbar p{opacity:.92;font-size:15px;max-width:560px;margin:0 auto}
+.legal-links{margin-top:14px;font-size:12.5px;color:var(--ink-soft)}
+.legal-links a{color:var(--slivo);font-weight:600}
+.legal{display:none;position:fixed;inset:0;z-index:999;background:rgba(58,51,88,.55);padding:24px 16px;overflow-y:auto}
+.legal:target{display:block}
+.legal .lbox{background:#fff;max-width:760px;margin:0 auto;border-radius:24px;padding:34px 30px;text-align:left;position:relative;box-shadow:0 30px 70px -30px rgba(58,51,88,.7)}
+.legal .lclose{position:absolute;top:14px;right:18px;font-size:30px;line-height:1;color:var(--slivo);text-decoration:none;font-weight:800}
+.legal h3{font-size:22px;color:var(--ink);margin:0 34px 4px 0}
+.legal .ld{font-size:12.5px;color:var(--ink-soft);margin-bottom:14px}
+.legal h4{font-size:15.5px;color:var(--slivo);margin:18px 0 6px}
+.legal p{font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0 0 6px}
+.legal a{color:var(--slivo)}
+@media(max-width:600px){.legal .lbox{padding:26px 20px}}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--ink-soft);max-width:760px;margin-left:auto;margin-right:auto}
+.sources{font-size:10.5px;line-height:1.5;color:var(--ink-soft);opacity:.7;margin-top:12px;max-width:760px;margin-left:auto;margin-right:auto}
+.sources a{color:var(--slivo)}
+
+@media(max-width:860px){.g3{grid-template-columns:1fr}.offer{grid-template-columns:1fr}}
+@media(max-width:600px){.wrap{padding-inline:16px}.g2{grid-template-columns:1fr}.tool{flex-direction:column}
+  .callout{flex-direction:column;padding:22px}.pc{grid-template-columns:1fr}.offer .l,.offer .r{padding:26px 22px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+
+<header class="hero wrap">
+  <span class="eyebrow">✦ Гайд по нейросетям · 2026</span>
+  <h1>Как оплатить ChatGPT, Gemini и&nbsp;Claude из&nbsp;России</h1>
+  <p class="lead">Российские карты эти сервисы не принимают, но оплатить подписку всё равно можно. Рассказываю, как зарегистрироваться с нуля, какой тариф брать, какие 9 способов работают сейчас, от бота «под ключ» до Озона, МТС и Т-Банка, и где чаще всего теряют деньги.</p>
+  <div class="tagline accent">Зарегистрироваться → выбрать тариф → оплатить → пользоваться ✨</div>
+  <div class="callout hero-note">
+    <div class="ic">💡</div>
+    <div><h3>Все способы сводятся к одному</h3><p>Ты платишь рублями, а подписку оплачивает <strong>что-то зарубежное</strong>: ваучер, баланс App Store другой страны или иностранная карта. Дальше пользуешься нейросетью как обычно. Способы отличаются только ценой, скоростью и риском.</p></div>
+  </div>
+  <nav class="pillrow" aria-label="Содержание">
+    <a class="pill" href="#signup"><span>🔑</span>Как зарегистрироваться</a>
+    <a class="pill" href="#tariffs"><span>🎯</span>Какой тариф взять</a>
+    <a class="pill" href="#ways"><span>💳</span>9 способов оплаты</a>
+    <a class="pill" href="#compare"><span>⚖️</span>Что выбрать</a>
+    <a class="pill" href="#mistakes"><span>🛡️</span>Как не потерять деньги</a>
+  </nav>
+</header>
+
+<section class="wrap" id="signup">
+  <span class="sec-tag">01 — Регистрация</span>
+  <h2>Как зарегистрироваться с нуля</h2>
+  <p class="sub">Если у тебя ещё нет аккаунта ни в одной нейросети, начни отсюда. Без своего аккаунта не сработает почти ни один способ оплаты. Исключения — бот, который создаст аккаунт за тебя, и агрегаторы.</p>
+  <div class="grid g3">
+    <div class="card"><div class="chip">🛡️</div><h3>1. Включи VPN</h3><p>Без VPN сайты и приложения ChatGPT, Gemini и Claude из России не откроются. Для ChatGPT и Claude обычно стабильно работает Германия, для Gemini лучше Швейцария. Заходи всегда через одну и ту же страну.</p></div>
+    <div class="card"><div class="chip">✉️</div><h3>2. Подготовь почту</h3><p>Подходят Gmail и Outlook. На Яндекс и Mail.ru ChatGPT часто отказывается регистрировать. Проще всего нажимать «Войти через Google» — это работает во всех трёх нейросетях.</p></div>
+    <div class="card"><div class="chip">🤖</div><h3>3. Зарегистрируйся</h3><p>Заведи аккаунт на официальном сайте и пару дней посиди на бесплатной версии. Так поймёшь, нужна ли тебе подписка и какая.</p></div>
+  </div>
+
+  <h3 class="subhead">Особенности каждой нейросети</h3>
+  <div class="grid g3">
+    <div class="card">
+      <span class="lvl">Gemini</span>
+      <h3>Проще всех</h3>
+      <p>Нужен только аккаунт Google и VPN. Заходишь на gemini.google.com под своей почтой, и можно пользоваться.</p>
+    </div>
+    <div class="card">
+      <span class="lvl">ChatGPT</span>
+      <h3>Почта или Google</h3>
+      <p>Обычно хватает почты или входа через Google. Иногда сервис просит номер телефона, и российский он не примет.</p>
+    </div>
+    <div class="card">
+      <span class="lvl">Claude</span>
+      <h3>Нужен иностранный номер</h3>
+      <p>При регистрации Claude обычно просит подтвердить номер телефона, а российский не подходит. Выручит номер друга за границей или бот, который сам зарегистрирует аккаунт и оплатит подписку (способ 1 ниже).</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:18px">
+    <div class="ic">📧</div>
+    <div><h3>Можно ли сейчас создать Gmail из России?</h3><p>Можно, но коды на российские номера Google часто не присылает, и регистрация застревает на подтверждении. Есть рабочие обходные пути: через приложение Gmail на телефоне и через сайт в браузере. А если Gmail не создаётся, подойдёт Outlook. Всё это разобрано по шагам в платном гайде.</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="tariffs">
+  <span class="sec-tag">02 — Тарифы</span>
+  <h2>Какой тариф тебе нужен</h2>
+  <p class="sub">Прежде чем платить, реши, за что именно. Большинству хватает тарифа за $20. Дорогие тарифы нужны тем, кто сидит в нейросети целый день.</p>
+  <div class="tablecard">
+    <table>
+      <thead><tr><th>Нейросеть</th><th>Бесплатно</th><th>Недорогой</th><th>Основной</th><th>Для профи</th></tr></thead>
+      <tbody>
+        <tr><td><strong>ChatGPT</strong></td><td>Есть, с лимитами</td><td class="money">Go · $8</td><td class="money">Plus · $20</td><td class="money">Pro · $100–500</td></tr>
+        <tr><td><strong>Gemini</strong></td><td>Есть, с лимитами</td><td class="money">AI Plus · $4,99</td><td class="money">AI Pro · $19,99</td><td class="money">AI Ultra · $99,99–199,99</td></tr>
+        <tr><td><strong>Claude</strong></td><td>Есть, с лимитами</td><td>—</td><td class="money">Pro · $20</td><td class="money">Max · $100–200</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small" style="margin-top:10px">Цены официальные, в долларах за месяц. В рублях выходит дороже на 10–40%: подписка за $20 обойдётся примерно в 1 600–2 800 ₽ в зависимости от способа.</p>
+  <div class="callout warn" style="margin-top:18px">
+    <div class="ic">🛡️</div>
+    <div><h3>Заложи в бюджет VPN</h3><p>Сайты и приложения ChatGPT, Gemini и Claude из России без VPN не открываются, поэтому он нужен <strong>обязательно</strong>, даже с оплаченной подпиской. Нормальный платный VPN стоит примерно <strong>100–500 ₽ в месяц</strong>. Бесплатные часто отваливаются и могут сливать данные. Выбирай сервер в США или Европе и заходи всегда через одну и ту же страну. Без VPN работают только агрегаторы в рублях, о них ниже.</p></div>
+  </div>
+
+  <h3 class="subhead">ChatGPT: Go за $8 или Plus за $20</h3>
+  <div class="grid g2">
+    <div class="card">
+      <span class="lvl">Go · $8 в месяц</span>
+      <div class="big">Для текстов и вопросов</div>
+      <ul class="breakdown">
+        <li class="yes">Лимиты примерно в 10 раз выше бесплатных</li>
+        <li class="yes">Проекты, память, работа с файлами</li>
+        <li class="no">Мало картинок в день. Серию слайдов часто выдаёт одной общей картинкой, а не по слайду</li>
+        <li class="no">Может показывать рекламу</li>
+        <li class="no">Урезанный Deep Research, нет полного Codex и агентов</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="lvl">Plus · $20 в месяц</span>
+      <div class="big">Для контента и работы</div>
+      <ul class="breakdown">
+        <li class="yes">Около 40–50 картинок за 3 часа</li>
+        <li class="yes">Карусели: рисует каждый слайд отдельной картинкой</li>
+        <li class="yes">Без рекламы</li>
+        <li class="yes">Полный Deep Research, Codex и агент</li>
+        <li class="yes">Старшие модели и режимы рассуждения</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="subhead">Gemini: AI Plus за $4,99 или AI Pro за $19,99</h3>
+  <div class="grid g2">
+    <div class="card">
+      <span class="lvl">AI Plus · $4,99 в месяц</span>
+      <div class="big">Попробовать подешевле</div>
+      <ul class="breakdown">
+        <li class="yes">Лимиты в 2 раза выше бесплатных</li>
+        <li class="yes">Немного видео: 200 кредитов в Flow</li>
+        <li class="yes">400 ГБ в Google Диске</li>
+        <li class="no">Старшие модели — с жёсткими лимитами</li>
+        <li class="no">Gemini только в Gmail, без Docs и Chrome</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="lvl">AI Pro · $19,99 в месяц</span>
+      <div class="big">Основной тариф</div>
+      <ul class="breakdown">
+        <li class="yes">Лимиты в 4 раза выше бесплатных, больше доступа к Pro-модели</li>
+        <li class="yes">Больше видео: 1 000 кредитов в Flow</li>
+        <li class="yes">Работает с очень длинными документами</li>
+        <li class="yes">Gemini в Gmail, Docs и Chrome, Deep Research</li>
+        <li class="yes">5 ТБ в Google Диске, YouTube Premium Lite</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="subhead">Claude: бесплатный или Pro за $20</h3>
+  <div class="grid g2">
+    <div class="card">
+      <span class="lvl">Бесплатный · $0</span>
+      <div class="big">Чтобы присмотреться</div>
+      <ul class="breakdown">
+        <li class="yes">Тексты, разбор файлов и фото</li>
+        <li class="no">Лимиты заканчиваются быстро</li>
+        <li class="no">Нет Claude Code и расширенного Research</li>
+        <li class="no">Недорогого тарифа, как Go у ChatGPT, у Claude нет</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="lvl">Pro · $20 в месяц</span>
+      <div class="big">Для текстов, кода и работы</div>
+      <ul class="breakdown">
+        <li class="yes">Намного больше сообщений, чем бесплатно</li>
+        <li class="yes">Claude Code, Research, проекты и подключение приложений</li>
+        <li class="yes">Хорош для длинных текстов, кода, таблиц и документов</li>
+        <li class="no">Картинки не рисует, для визуала нужен ChatGPT или Gemini</li>
+      </ul>
+    </div>
+  </div>
+  <p class="small" style="margin-top:10px">Max за $100 и $200 нужен, только если работаешь в Claude часами каждый день: это в 5 и 20 раз больше лимитов, чем на Pro.</p>
+
+  <div class="callout" style="margin-top:18px">
+    <div class="ic">🎯</div>
+    <div><h3>Как выбрать</h3><p>Делаешь <strong>карусели, обложки и визуал</strong> — бери ChatGPT Plus: на Go упрёшься в лимиты картинок в первый же вечер. Для текстов и учёбы хватит ChatGPT Go. Живёшь в Gmail и Google Docs — Gemini AI Pro. Пишешь длинные тексты, работаешь с документами или кодом — Claude Pro. Тарифы за $100 и выше большинству не нужны.</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="ways">
+  <span class="sec-tag">03 — Способы</span>
+  <h2>9 способов оплатить нейросети</h2>
+  <p class="sub">От самого простого к сложному. Проходить все не нужно: выбери один, который подходит именно тебе. У каждого способа свои подводные камни, о них ниже.</p>
+  <div class="grid g2">
+
+    <div class="card tool">
+      <div class="badge" style="background:linear-gradient(140deg,#FFB86B,#FF8E6B)">1</div>
+      <div>
+        <span class="tag-role new">Самый простой · аккаунт не нужен</span>
+        <h3>Бот в Telegram с гарантией: регистрация и оплата под ключ</h3>
+        <span class="suits">Claude · ChatGPT · Gemini · Grok</span>
+        <div class="cost"><b>2 590–2 690 ₽</b><span>ChatGPT Plus 2 590 ₽ · Claude Pro 2 690 ₽</span></div>
+        <p>Telegram-бот сам создаёт почту и аккаунт, оплачивает подписку и передаёт тебе доступ. Ты платишь рублями по СБП или картой. С тобой общается живой менеджер, поэтому подключение занимает до 24 часов.</p>
+        <div class="pc">
+          <ul class="plus"><b>Плюсы</b><li>Не нужны своя почта, иностранный номер и зарубежная карта</li><li>Гарантия замены аккаунта</li><li>С любого телефона или компьютера</li></ul>
+          <ul class="minus"><b>Минусы</b><li>Ждать до 24 часов</li><li>Продлевать каждый месяц через бота</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tool">
+      <div class="badge" style="background:linear-gradient(140deg,#5BC0A0,#2E9E7A)">2</div>
+      <div>
+        <span class="tag-role">Новое · 2026</span>
+        <h3>Через Озон Банк</h3>
+        <span class="suits">ChatGPT · Claude · Cursor и др.</span>
+        <div class="cost"><b>≈ 2 760 ₽</b><span>ChatGPT Plus · Go ≈ 1 200 ₽</span></div>
+        <p>В приложении Озон → Банк → оплата зарубежных сервисов. Выбираешь нейросеть и тариф, платишь рублями и получаешь код для активации подписки на твоём аккаунте. Для ChatGPT нужен уже созданный аккаунт с регионом США или новый.</p>
+        <div class="pc">
+          <ul class="plus"><b>Плюсы</b><li>Привычное приложение</li><li>Подписка на твой аккаунт</li><li>Пароль не нужен</li></ul>
+          <ul class="minus"><b>Минусы</b><li>Переплата до 20–40%</li><li>Gemini в списке пока нет</li><li>Без автопродления</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tool">
+      <div class="badge" style="background:linear-gradient(140deg,#FF7A8A,#E2475C)">3</div>
+      <div>
+        <span class="tag-role">Новое · с апреля 2026</span>
+        <h3>Ваучер в «МТС Оплате»</h3>
+        <span class="suits pink">ChatGPT · Claude · Gemini · 130+ сервисов</span>
+        <div class="cost"><b>≈ 2 450 ₽</b><span>ChatGPT Plus с комиссией · Go ≈ 1 120 ₽</span></div>
+        <p>Работает <strong>не только для абонентов МТС</strong>: платить можно по СБП картой любого банка, а абоненты МТС могут ещё и с баланса телефона. Выбираешь сервис, указываешь свою почту, и через 15 минут на неё приходит ваучер или разовая зарубежная карта с инструкцией по активации.</p>
+        <div class="pc">
+          <ul class="plus"><b>Плюсы</b><li>Официальный крупный продавец</li><li>Любой банк, не нужно быть абонентом</li><li>Удобно дарить</li></ul>
+          <ul class="minus"><b>Минусы</b><li>Цена выше официальной</li><li>Нужный тариф бывает раскуплен</li><li>Без автопродления</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tool">
+      <div class="badge" style="background:linear-gradient(140deg,#FFDD55,#F5B800)">4</div>
+      <div>
+        <span class="tag-role">Только для iPhone</span>
+        <h3>Подарочная карта Apple через Т-Банк</h3>
+        <span class="suits">ChatGPT · Claude · Gemini в приложении</span>
+        <div class="cost"><b>цена в приложении</b><span>номинал карты + комиссия Т-Банка</span></div>
+        <p>Подарочную карту App Store США покупаешь прямо в приложении Т-Банка, без поиска продавца. Пополняешь ею баланс Apple ID с регионом США и оформляешь подписку в приложении нейросети.</p>
+        <div class="pc">
+          <ul class="plus"><b>Плюсы</b><li>Без маркетплейса и продавцов</li><li>Продлевается сама с баланса Apple</li></ul>
+          <ul class="minus"><b>Минусы</b><li>Только айфон</li><li>Нужны Apple ID США и карта Т-Банка</li></ul>
+        </div>
+      </div>
+    </div>
+<div class="card tool">
+      <div class="badge" style="background:linear-gradient(140deg,#7AA7FF,#8E7BFF)">5</div>
+      <div>
+        <span class="tag-role">Самый популярный · только с готовым аккаунтом</span>
+        <h3>Маркетплейсы: FunPay, Plati и GGSel</h3>
+        <span class="suits blue">Все три нейросети</span>
+        <div class="cost"><b>≈ 2 200–2 300 ₽</b><span>ChatGPT Plus на свой аккаунт · общие аккаунты дешевле</span></div>
+        <p>Ищешь «ChatGPT Plus», «Claude Pro» или «Gemini Pro», выбираешь продавца, платишь картой или СБП. Важно понимать, что именно ты покупаешь, потому что предложения бывают четырёх видов:</p>
+        <ul class="breakdown">
+          <li class="yes"><strong>Оплата на твой аккаунт.</strong> Продавец оформляет подписку на твою почту. Лучший вариант</li>
+          <li class="yes"><strong>Код активации.</strong> Вводишь его самостоятельно. Подходит, если продавец надёжный</li>
+          <li><strong>Готовый личный аккаунт.</strong> Новый аккаунт только для тебя, но все чаты начнёшь с нуля</li>
+          <li class="no"><strong>Общий аккаунт.</strong> Дёшево, но делишь его с чужими людьми, они видят твои чаты, и такие часто блокируют</li>
+        </ul>
+        <div class="lock">Площадки: <a href="https://funpay.com" target="_blank" rel="noopener">FunPay</a>, <a href="https://plati.market" target="_blank" rel="noopener">Plati</a>, <a href="https://ggsel.net" target="_blank" rel="noopener">GGSel</a>. Выбор продавца — твоя ответственность: обязательно смотри свежие отзывы. 🔒 Как выбрать продавца, что спросить до оплаты и что делать, если подписка не пришла, — в пошаговом гайде.</div>
+      </div>
+    </div>
+
+    
+    <div class="card tool">
+      <div class="badge" style="background:linear-gradient(140deg,#B7A6FF,#8E7BFF)">6</div>
+      <div>
+        <span class="tag-role">Только для iPhone</span>
+        <h3>Apple ID США или Турции и подарочная карта</h3>
+        <span class="suits">ChatGPT · Claude · Gemini в приложении</span>
+        <div class="cost"><b>≈ 1 800–2 300 ₽</b><span>за подписку · карта на $15 на Plati/GGSel ≈ 1 800 ₽ с комиссией</span></div>
+        <p>Меняешь регион Apple ID на США или Турцию, пополняешь баланс подарочной картой, купленной за рубли, и оформляешь подписку прямо в приложении нейросети. Платёж проводит Apple. Первый раз попробуй карту на $2, чтобы проверить продавца.</p>
+        <div class="pc">
+          <ul class="plus"><b>Плюсы</b><li>Продлевается сама с баланса</li><li>Подписка на твой аккаунт</li><li>В Турции цены бывают ниже</li></ul>
+          <ul class="minus"><b>Минусы</b><li>Один раз разобраться с Apple ID</li><li>Только айфон</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tool">
+      <div class="badge" style="background:linear-gradient(140deg,#8E7BFF,#6B5ACD)">7</div>
+      <div>
+        <span class="tag-role">Для постоянной подписки</span>
+        <h3>Своя зарубежная виртуальная карта</h3>
+        <span class="suits">Плати по миру · WantToPay · Wayment</span>
+        <div class="cost"><b>≈ 1 600–2 200 ₽</b><span>ChatGPT Plus с комиссией + выпуск карты ≈ 1 000–3 000 ₽</span></div>
+        <p>Выпускаешь зарубежную виртуальную карту в Telegram-боте, пополняешь рублями по СБП и платишь ею на сайте нейросети, как обычной картой. Подходит для всех трёх сервисов. Для Gemini нужен отдельный платёжный профиль Google со страной карты.</p>
+        <div class="pc">
+          <ul class="plus"><b>Плюсы</b><li>Продлевается сама</li><li>Одна карта на все сервисы</li><li>Почти официальная цена</li></ul>
+          <ul class="minus"><b>Минусы</b><li>Плата за выпуск карты</li><li>Иногда платёж отклоняют</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tool">
+      <div class="badge" style="background:linear-gradient(140deg,#FFB6D6,#FF9EC7)">8</div>
+      <div>
+        <span class="tag-role">Самый дешёвый</span>
+        <h3>Друг за границей</h3>
+        <span class="suits pink">Если есть знакомые с зарубежной картой</span>
+        <div class="cost"><b>$20 по курсу</b><span>без наценки</span></div>
+        <p>Друг или родственник с зарубежной картой вводит её в форме оплаты, пока аккаунт открыт на твоём устройстве, а ты переводишь ему сумму по курсу. Пароль другу лучше не давать.</p>
+        <div class="pc">
+          <ul class="plus"><b>Плюсы</b><li>Официальная цена</li><li>Продлевается сама, пока карта действует</li></ul>
+          <ul class="minus"><b>Минусы</b><li>Нужен человек с зарубежной картой</li><li>Зависишь от его карты</li></ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <h3 class="subhead">9. Агрегаторы в рублях — без VPN и без зарубежной карты</h3>
+  <p class="sub">Самый быстрый вариант. Платишь рублями, заходишь из России напрямую, и внутри сразу несколько нейросетей. Это не официальная подписка: интерфейс у сервиса свой, а проектов, памяти и фирменных приложений может не быть. Ими пользуюсь я сама. У каждого свой уклон, выбирай под задачу.</p>
+  <div class="grid g2 agg">
+    <div class="card">
+      <span class="nov">Без VPN</span>
+      <h3>SYNTX</h3>
+      <div class="cost"><b>от 890 ₽</b><span>в месяц · Pro 1 690 ₽ · есть бесплатные токены</span></div>
+      <p><strong>Всё в одном месте.</strong> Telegram-бот и сайт с 90+ нейросетями: ChatGPT, Claude, Gemini, Nano Banana, Veo, Kling и другие. Тексты, картинки, видео и музыка по одной подписке. Подходит, если хочешь попробовать всё и пока не знаешь, что нужно.</p>
+      <a class="btn blue" href="https://t.me/syntxaibot?start=aff_177818188" target="_blank" rel="noopener">Открыть SYNTX →</a>
+    </div>
+    <div class="card">
+      <span class="nov">Без VPN</span>
+      <h3>AI Seven</h3>
+      <div class="cost"><b>от 1 800 ₽</b><span>в месяц · или без подписки: 10 000 токенов за 100 ₽</span></div>
+      <p><strong>Для контента и блога.</strong> Внутри ChatGPT, Claude и Gemini, а сверху готовые инструменты: карусели, свой ИИ-аватар, контент-завод, мультики и сайт-визитка. Удобно, если ведёшь соцсети или продвигаешь себя как эксперта.</p>
+      <a class="btn" href="https://telegram.me/Ai_Sevenbot?start=ref_177818188" target="_blank" rel="noopener">Открыть AI Seven →</a>
+    </div>
+    <div class="card">
+      <span class="nov">Без VPN</span>
+      <h3>Doitong</h3>
+      <div class="cost"><b>от 2 159 ₽</b><span>в месяц · есть бесплатный старт</span></div>
+      <p><strong>Для мультиков и видео.</strong> Сценарии, персонажи, сториборды, озвучка и склейка в одном окне. Внутри есть GPT и Gemini для текста. Русский интерфейс, без сложных промптов.</p>
+      <a class="btn pink" href="https://doitong.onelink.me/4cfC/mh3xsumx?af_xp=custom&amp;pid=user_referral&amp;ref=MAGNIFICENT2261&amp;af_sub1=MAGNIFICENT2261" target="_blank" rel="noopener">Открыть Doitong →</a>
+    </div>
+    <div class="card">
+      <span class="nov">Без VPN</span>
+      <h3>Givon</h3>
+      <div class="cost"><b>от 990 ₽</b><span>в месяц · 30 токенов на старт · −10% по моей ссылке</span></div>
+      <p>65+ моделей для картинок, видео и аватаров: Nano Banana Pro, Veo, Kling, Seedance, ChatGPT Images и другие. Оживляет фото и держит одного персонажа во всех роликах.</p>
+      <a class="btn" href="https://givon.ai/r/Yana1515" target="_blank" rel="noopener">Открыть Givon −10% →</a>
+    </div>
+  </div>
+  <p class="small" style="margin-top:12px">Есть и другие агрегаторы и Telegram-боты с нейросетями в рублях. Выбирай по отзывам и смотри, какие модели внутри и сколько стоит одна генерация.</p>
+</section>
+
+<section class="wrap" id="compare">
+  <span class="sec-tag">04 — Сравнение</span>
+  <h2>Какой способ выбрать</h2>
+  <p class="sub">Коротко: не хочешь ни в чём разбираться — бот. Аккаунт уже есть и нужно быстро — Озон или МТС. Есть айфон — подарочная карта Apple. Платишь каждый месяц — виртуальная карта. Хочешь попробовать всё сразу без VPN — агрегатор.</p>
+  <div class="tablecard">
+    <table>
+      <thead><tr><th>Способ</th><th>Что нужно</th><th>Сложность</th><th>Автопродление</th><th>Цена</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1. Бот в Telegram с гарантией</strong></td><td><span class="dot ok">ничего, даже почты</span></td><td><span class="dot ok">очень легко</span></td><td><span class="dot mid">через бота</span></td><td class="money">2 590–2 690 ₽</td></tr>
+        <tr><td><strong>2. Озон Банк</strong></td><td><span class="dot mid">готовый аккаунт</span></td><td><span class="dot ok">легко</span></td><td><span class="dot bad">нет</span></td><td class="money">≈ 2 760 ₽</td></tr>
+        <tr><td><strong>3. МТС Оплата</strong></td><td><span class="dot mid">готовый аккаунт</span></td><td><span class="dot ok">легко</span></td><td><span class="dot bad">нет</span></td><td class="money">≈ 2 450 ₽</td></tr>
+        <tr><td><strong>4. Т-Банк + Apple</strong></td><td><span class="dot mid">айфон, Apple ID США</span></td><td><span class="dot mid">средне</span></td><td><span class="dot ok">да</span></td><td class="money">в приложении</td></tr>
+        <tr><td><strong>5. FunPay, Plati, GGSel</strong></td><td><span class="dot mid">аккаунт и надёжный продавец</span></td><td><span class="dot ok">легко</span></td><td><span class="dot bad">нет</span></td><td class="money">≈ 2 200–2 300 ₽</td></tr>
+        <tr><td><strong>6. Apple ID + карта</strong></td><td><span class="dot mid">айфон, Apple ID США/Турции</span></td><td><span class="dot mid">средне</span></td><td><span class="dot ok">да</span></td><td class="money">≈ 1 800–2 300 ₽</td></tr>
+        <tr><td><strong>7. Виртуальная карта</strong></td><td><span class="dot mid">аккаунт и выпуск карты</span></td><td><span class="dot mid">средне</span></td><td><span class="dot ok">да</span></td><td class="money">≈ 1 600–2 200 ₽</td></tr>
+        <tr><td><strong>8. Друг за границей</strong></td><td><span class="dot mid">аккаунт и друг с картой</span></td><td><span class="dot ok">легко</span></td><td><span class="dot ok">да</span></td><td class="money">$20 по курсу</td></tr>
+        <tr><td><strong>9. Агрегатор</strong></td><td><span class="dot ok">ничего, даже VPN</span></td><td><span class="dot ok">очень легко</span></td><td><span class="dot ok">да</span></td><td class="money">от 890 ₽</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="wrap" id="mistakes">
+  <span class="sec-tag">05 — Ошибки</span>
+  <h2>Где чаще всего теряют деньги</h2>
+  <div class="grid g2">
+    <div class="callout warn"><div class="ic">👥</div><div><h3>Покупают общий аккаунт</h3><p>Самый дешёвый вариант на маркетплейсах. Твои переписки видят чужие люди, а сам аккаунт могут заблокировать в любой момент.</p></div></div>
+    <div class="callout warn"><div class="ic">⭐</div><div><h3>Берут продавца без отзывов</h3><p>Экономия в 200 ₽ легко оборачивается потерей всей суммы. Смотри рейтинг, количество и свежесть отзывов.</p></div></div>
+    <div class="callout warn"><div class="ic">🔑</div><div><h3>Отдают пароль от основной почты</h3><p>Для нейросетей заведи отдельную почту. Нормальному сервису для оплаты хватит адреса, без пароля.</p></div></div>
+    <div class="callout warn"><div class="ic">📆</div><div><h3>Сразу платят за год</h3><p>Сначала попробуй месяц и убедись, что тариф тебе подходит и способ оплаты работает стабильно.</p></div></div>
+  </div>
+  <div class="callout" style="margin-top:18px">
+    <div class="ic">⚠️</div>
+    <div><h3>Честно о рисках</h3><p>Все эти способы обходят ограничения самих сервисов. Аккаунт из неподдерживаемой страны теоретически могут заблокировать. На практике это бывает редко, но не храни в нейросети то, что страшно потерять.</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="guide">
+  <div class="offer">
+    <div class="l">
+      <span class="sec-tag">Что дальше</span>
+      <h2>Пройди оплату по шагам, без ошибок</h2>
+      <p class="sub" style="margin-bottom:0">Теперь ты знаешь, какие есть способы. Но в каждом есть свои ловушки: где-то легко отдать деньги мошеннику, где-то аккаунт слетает через неделю, а где-то застреваешь на регистрации. Я собрала пошаговый гайд со скриншотами по каждому способу.</p>
+      <ul class="inside">
+        <li><span class="m">1</span>Регистрация с нуля: VPN, Gmail или Outlook из России, аккаунты в трёх нейросетях и как скачать их приложения на телефон</li>
+        <li><span class="m">2</span>Каждый из 9 способов оплаты по шагам со скриншотами и таблица «с чего начать»</li>
+        <li><span class="m">3</span>Как выбрать продавца на FunPay, Plati и GGSel, что спросить до оплаты и что делать, если подписка не пришла</li>
+        <li><span class="m">4</span>Как сменить регион Apple ID и где купить подарочную карту</li>
+        <li><span class="m">5</span>Как защитить аккаунт, чтобы его не заблокировали</li>
+        <li><span class="m">6</span>Что делать, если карта не прошла или подписка не продлилась</li>
+      </ul>
+    </div>
+    <div class="r">
+      <div class="accent" style="font-size:22px;color:var(--slivo)">пошаговый гайд ✦</div>
+      <div class="price">690 <small>₽</small></div>
+      <a class="btn" href="#">Получить гайд →</a>
+      <p class="small">Это пошаговая инструкция. Сами подписки ты оплачиваешь отдельно выбранным способом, цены у каждого свои.</p>
+      <p class="small">Обновляю гайд, если какой-то способ перестаёт работать</p>
+      <p class="small" style="font-size:11.5px">Оплачивая гайд, ты принимаешь условия <a href="#oferta" style="color:var(--slivo)">оферты</a> и соглашаешься с <a href="#pdp" style="color:var(--slivo)">политикой обработки персональных данных</a> и <a href="#privacy" style="color:var(--slivo)">политикой конфиденциальности</a>.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="footbar">
+    <div class="accent">нейросети без границ ✦</div>
+    <h3>Начни с одной подписки</h3>
+    <p>Не нужно оплачивать всё сразу. Выбери одну нейросеть под свою задачу и один удобный способ, а дальше всё работает само.</p>
+  </div>
+  <p class="disclaimer">Тарифы, цены и способы приведены по открытым источникам на осень 2026 года и носят ориентировочный характер. Сервисы, упомянутые как примеры, не являются рекомендацией конкретного продавца. Условия OpenAI, Google и Anthropic, а также работа платёжных сервисов в РФ могут меняться: перед оплатой сверяйся с актуальными правилами. Это информационный материал, а не финансовая или юридическая рекомендация. Я не несу ответственности за действия продавцов, площадок и сервисов, упомянутых в статье, и за результат оплаты — я только предоставляю информацию. Решение о покупке ты принимаешь самостоятельно.</p>
+  <p class="sources"><strong>Источники:</strong>
+    <a href="https://embedded.multitransfer.ru/ozon/products/business/ChatGPT/">Мультитрансфер для Озон</a> ·
+    <a href="https://setka.ru/posts/019d7804-559e-70b1-a5d6-b709295055c4">Сетка — оплата AI через Озон Банк</a> ·
+    <a href="https://theaicareerlab.com/blog/chatgpt-pricing-plans-explained">ChatGPT Go vs Plus vs Pro</a> ·
+    <a href="https://vc.ru/ai/3162709-sravnenie-chatgpt-go-i-plus">vc.ru — Go и Plus</a> ·
+    <a href="https://vc.ru/marketing/3155077-oplata-chatgpt-cherez-balans-apple-v-turtsii">vc.ru — ChatGPT через Apple Турция</a> ·
+    <a href="https://habr.com/ru/companies/ggsel_marketplace/articles/1068660/">Habr — ChatGPT Plus из России</a> ·
+    <a href="https://dtf.ru/howto/5280383-oplata-podpiski-claude-iz-rossii">DTF — подписка Claude</a> ·
+    <a href="https://vc.ru/services/3093910-oplata-gemini-iz-rossii">vc.ru — оплата Gemini</a> ·
+    <a href="https://www.klerk.ru/blogs/gdekurs/692860/">Клерк — виртуальные карты 2026</a> ·
+    <a href="https://vladimir.mts.ru/about/media-centr/soobshheniya-kompanii/novosti-mts-v-rossii-i-mire/2026-04-29/mts-zapustila-prodazhi-podarochnyh-vaucherov-na-zarubezhnye-servisy">МТС — ваучеры на зарубежные сервисы</a> ·
+    <a href="https://ya.zerocoder.ru/kak-oplatit-chatgpt-iz-rossii/">Зерокодер — цены МТС Оплаты</a> ·
+    <a href="https://habr.com/ru/companies/paybeam/articles/1034210/">Habr — сколько стоит ChatGPT Plus по факту</a> ·
+    <a href="https://shtruzel.ru/services/aggregators/syntx-ai">Тарифы Syntx AI</a> ·
+    <a href="https://aimarketcap.ru/ai-tools/doitong-ai/">Тарифы Doitong</a> ·
+    <a href="https://givon.ai/ru/pricing">Тарифы Givon</a> ·
+    <a href="https://help.openai.com/en/articles/9793128-about-chatgpt-pro-tiers">OpenAI — тарифы Pro</a> ·
+    <a href="https://tooltaxhq.com/pricing/gemini">Тарифы Google AI</a> ·
+    <a href="https://support.claude.com/en/articles/11049741-what-is-the-max-plan">Claude — тариф Max</a> ·
+    <a href="https://habr.com/ru/companies/paytool/articles/1087508/">Habr — как проходит оплата через Озон</a>
+  </p>
+  <p class="legal-links">Минаева Яна Витальевна · самозанятая · ИНН 774335456117 · <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a><br><a href="#oferta">Публичная оферта</a> · <a href="#privacy">Политика конфиденциальности</a> · <a href="#pdp">Политика обработки персональных данных</a></p>
+<div class="legal" id="oferta"><div class="lbox"><a class="lclose" href="#guide" aria-label="Закрыть">×</a><h3>Публичная оферта</h3><p class="ld">на предоставление доступа к информационному материалу · редакция от 10 октября 2026 г.</p><h4>1. Общие положения</h4><p>1.1. Минаева Яна Витальевна, плательщик налога на профессиональный доход (самозанятая), ИНН 774335456117 (далее — «Продавец»), предлагает любому дееспособному лицу, достигшему 18 лет (далее — «Покупатель»), заключить договор на условиях настоящей оферты (ст. 435 и п. 2 ст. 437 ГК РФ).</p><p>1.2. Акцептом оферты является оплата Гайда. С момента оплаты договор считается заключённым, а Покупатель — согласившимся со всеми условиями оферты, Политикой конфиденциальности и Политикой обработки персональных данных (п. 3 ст. 438 ГК РФ).</p><h4>2. Предмет договора</h4><p>2.1. Продавец предоставляет Покупателю доступ к электронному информационному материалу «Оплата ChatGPT, Gemini и Claude из России по шагам» в виде веб-страницы (далее — «Гайд»), а Покупатель оплачивает его.</p><p>2.2. <strong>Гайд — это пошаговая инструкция.</strong> Подписки на нейросети, VPN, виртуальные карты, подарочные карты, ваучеры и услуги продавцов на маркетплейсах в стоимость Гайда не входят. Покупатель оплачивает их отдельно и самостоятельно третьим лицам по их ценам. Продавец эти товары и услуги не продаёт и не является представителем их владельцев.</p><p>2.3. Упомянутые в Гайде сервисы, площадки и продавцы приведены как примеры. Выбор способа оплаты, сервиса и продавца Покупатель делает самостоятельно.</p><h4>3. Цена и оплата</h4><p>3.1. Стоимость Гайда — 690 (шестьсот девяносто) рублей. НДС не облагается в связи с применением Продавцом налога на профессиональный доход.</p><p>3.2. Оплата принимается через платёжный сервис Prodamus (ООО «Продамус») банковской картой или по СБП. Обязательство по оплате считается исполненным в момент зачисления денег.</p><p>3.3. Чек формируется в приложении «Мой налог» и направляется Покупателю на указанную при оплате почту или телефон.</p><h4>4. Предоставление доступа</h4><p>4.1. Ссылка на Гайд направляется на адрес электронной почты, указанный при оплате, и/или показывается на странице после оплаты — как правило, сразу, но не позднее 24 часов с момента оплаты.</p><p>4.2. Если ссылка не пришла, Покупатель проверяет папку «Спам» и пишет на <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a>, указав почту, с которой оплачивал.</p><p>4.3. Обязательства Продавца считаются исполненными в момент направления Покупателю ссылки на Гайд.</p><p>4.4. Продавец вправе обновлять и дополнять Гайд. Актуальная версия доступна по той же ссылке, пока Продавец поддерживает Гайд.</p><p>4.5. Для открытия Гайда нужен браузер и доступ в интернет. Для выполнения шагов из Гайда в отношении зарубежных сервисов Покупателю может понадобиться VPN, который он приобретает самостоятельно.</p><h4>5. Права на Гайд</h4><p>5.1. Гайд является результатом интеллектуальной деятельности Продавца. Покупатель получает право использовать его для личных некоммерческих целей.</p><p>5.2. Запрещено передавать ссылку на Гайд третьим лицам, публиковать, копировать, перепродавать или иным образом распространять Гайд полностью или частично без письменного согласия Продавца.</p><h4>6. Возврат</h4><p>6.1. Если доступ к Гайду не был предоставлен по вине Продавца, Покупатель вправе потребовать полного возврата оплаты, написав на <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a>.</p><p>6.2. Если Покупатель не может открыть Гайд по техническим причинам, Продавец помогает решить проблему, а если это невозможно — возвращает деньги.</p><p>6.3. Гайд — цифровой информационный материал, который после предоставления доступа нельзя вернуть. Поэтому после направления ссылки возврат оплаты не производится, кроме случаев, предусмотренных законодательством РФ.</p><p>6.4. Возврат производится тем же способом, которым была произведена оплата, в течение 10 рабочих дней с момента получения запроса.</p><h4>7. Ответственность</h4><p>7.1. Гайд носит информационный характер и не является финансовой, юридической или иной профессиональной консультацией.</p><p>7.2. Продавец не гарантирует, что описанные способы будут работать у каждого Покупателя и в любое время: условия OpenAI, Google, Anthropic, банков, платёжных сервисов, маркетплейсов и продавцов могут меняться без участия Продавца.</p><p>7.3. Продавец не несёт ответственности за действия и бездействие третьих лиц (продавцов, площадок, банков, сервисов виртуальных карт, VPN, разработчиков нейросетей), за блокировку аккаунтов, отказ в оплате, потерю денег при расчётах с третьими лицами, а также за последствия решений, принятых Покупателем.</p><p>7.4. Ответственность Продавца по договору в любом случае ограничена стоимостью Гайда.</p><h4>8. Персональные данные</h4><p>8.1. Обработка персональных данных Покупателя ведётся в соответствии с <a href="#pdp">Политикой обработки персональных данных</a> и <a href="#privacy">Политикой конфиденциальности</a>.</p><h4>9. Споры и заключительные положения</h4><p>9.1. Договор регулируется законодательством Российской Федерации.</p><p>9.2. Споры решаются путём переговоров. Претензии направляются на <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a>, срок ответа — 10 рабочих дней. Если спор не урегулирован, он рассматривается в суде в порядке, установленном законодательством РФ.</p><p>9.3. Продавец вправе изменять оферту. Новая редакция действует с момента размещения и не распространяется на договоры, заключённые ранее.</p><h4>10. Реквизиты Продавца</h4><p>Минаева Яна Витальевна<br>Плательщик налога на профессиональный доход (самозанятая)<br>ИНН 774335456117<br>Email: <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a></p></div></div>
+<div class="legal" id="privacy"><div class="lbox"><a class="lclose" href="#guide" aria-label="Закрыть">×</a><h3>Политика конфиденциальности</h3><p class="ld">Редакция от 10 октября 2026 г.</p>
+<h4>1. Кто отвечает за данные</h4><p>Оператор персональных данных — Минаева Яна Витальевна, плательщик налога на профессиональный доход (самозанятая), ИНН 774335456117 (далее — «Оператор»). Связаться по любым вопросам о данных: <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a>.</p><p>Политика действует для страниц бесплатной статьи и платного гайда «Оплата ChatGPT, Gemini и Claude из России» (далее — «Материалы») и для покупки платного гайда.</p><h4>2. Какие данные собираются</h4><p>На самих страницах Материалов никакие формы не заполняются, и Оператор не собирает данные посетителей.</p><p>При покупке гайда в платёжной форме сервиса Prodamus указываются: имя, адрес электронной почты, номер телефона. Эти данные Оператор получает от Prodamus вместе с информацией о заказе (сумма, дата, статус оплаты).</p><p>Данные банковской карты Оператор не получает и не хранит: их обрабатывают Prodamus и банк в защищённом режиме.</p><h4>3. Зачем нужны данные</h4><p>— чтобы принять оплату и отправить доступ к гайду;</p><p>— чтобы сформировать и отправить чек через приложение «Мой налог»;</p><p>— чтобы ответить на вопросы и помочь, если с доступом что-то пошло не так;</p><p>— чтобы сообщить об обновлениях купленного гайда.</p><p>Рекламные рассылки без отдельного согласия не отправляются.</p><h4>4. Кому передаются данные</h4><p>Только тем, без кого невозможно провести оплату и выдать чек: сервису Prodamus (ООО «Продамус»), банку, который принимает платёж, и ФНС России через «Мой налог». Данные не продаются и не передаются за границу.</p><h4>5. Cookie и сервисы на странице</h4><p>Оператор не использует собственные cookie, счётчики и системы аналитики. Страницы размещены на платформе Claude (Anthropic), которая может использовать технические cookie для работы сайта по своим правилам. Ссылки на сторонние сайты и Telegram-ботов ведут на ресурсы, за правила которых Оператор не отвечает.</p><h4>6. Сколько хранятся данные</h4><p>Пока это нужно для целей из пункта 3, но не дольше 3 лет после покупки, если закон не требует хранить дольше. По истечении срока или после отзыва согласия данные удаляются.</p><h4>7. Твои права</h4><p>Ты можешь узнать, какие данные о тебе есть, попросить исправить или удалить их и отозвать согласие. Для этого напиши на <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a>. Ответ — в течение 10 рабочих дней.</p><h4>8. Изменения</h4><p>Оператор может обновлять Политику. Актуальная редакция всегда находится на этой странице.</p></div></div>
+<div class="legal" id="pdp"><div class="lbox"><a class="lclose" href="#guide" aria-label="Закрыть">×</a><h3>Политика обработки персональных данных</h3><p class="ld">Редакция от 10 октября 2026 г.</p>
+<h4>1. Общие положения</h4><p>1.1. Настоящая Политика составлена в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных» и определяет порядок обработки персональных данных и меры по их защите.</p><p>1.2. Оператор — Минаева Яна Витальевна, плательщик налога на профессиональный доход (самозанятая), ИНН 774335456117. Контактный адрес: <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a>.</p><p>1.3. Политика применяется ко всем персональным данным, которые Оператор получает при продаже платного гайда «Оплата ChatGPT, Gemini и Claude из России» (далее — «Гайд»).</p><h4>2. Основные понятия</h4><p>Персональные данные — любая информация, относящаяся прямо или косвенно к определённому или определяемому физическому лицу (субъекту персональных данных). Обработка — любое действие с персональными данными: сбор, запись, систематизация, накопление, хранение, уточнение, использование, передача, блокирование, удаление, уничтожение.</p><h4>3. Цели обработки</h4><p>3.1. Заключение и исполнение договора на покупку Гайда, предоставление доступа к нему.</p><p>3.2. Формирование и направление кассового чека в соответствии с законодательством о налоге на профессиональный доход.</p><p>3.3. Связь с покупателем по вопросам доступа, оплаты и обновлений Гайда.</p><h4>4. Состав данных и категории субъектов</h4><p>4.1. Субъекты — покупатели Гайда.</p><p>4.2. Обрабатываются: имя, адрес электронной почты, номер телефона, сведения о заказе и оплате.</p><p>4.3. Специальные категории персональных данных и биометрические данные не обрабатываются.</p><h4>5. Правовые основания</h4><p>5.1. Исполнение договора, стороной которого является субъект (п. 5 ч. 1 ст. 6 152-ФЗ).</p><p>5.2. Исполнение обязанностей, возложенных на Оператора законодательством РФ, в том числе налоговым (п. 2 ч. 1 ст. 6 152-ФЗ).</p><p>5.3. Согласие субъекта, которое он даёт, оплачивая Гайд и указывая свои данные в платёжной форме.</p><h4>6. Порядок и условия обработки</h4><p>6.1. Обработка ведётся с использованием средств автоматизации и без них.</p><p>6.2. Данные поступают Оператору от платёжного сервиса Prodamus (ООО «Продамус»), через форму которого покупатель оплачивает Гайд. Данные банковских карт Оператору не передаются.</p><p>6.3. Данные передаются третьим лицам только для целей из раздела 3: ООО «Продамус», банку-эквайеру, ФНС России (приложение «Мой налог»). Трансграничная передача не осуществляется.</p><p>6.4. Запись, систематизация, накопление, хранение, уточнение и извлечение персональных данных граждан РФ ведутся с использованием баз данных, находящихся на территории РФ.</p><p>6.5. Срок обработки — до достижения целей, но не более 3 лет с момента покупки, если более долгий срок не установлен законом. Данные уничтожаются по истечении срока, при достижении целей или при отзыве согласия, если нет иных законных оснований для обработки.</p><h4>7. Меры защиты</h4><p>Оператор принимает необходимые правовые, организационные и технические меры для защиты данных от неправомерного доступа, изменения, распространения и уничтожения: ограничивает доступ к данным, использует защищённые сервисы с паролями и двухфакторной аутентификацией, не передаёт данные лицам, не участвующим в исполнении договора.</p><h4>8. Права субъекта</h4><p>8.1. Субъект вправе получить сведения об обработке своих данных, потребовать их уточнения, блокирования или уничтожения, если они неполные, устаревшие или обрабатываются незаконно, отозвать согласие и обжаловать действия Оператора в Роскомнадзоре или суде.</p><p>8.2. Запросы направляются на <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a>. Оператор отвечает в течение 10 рабочих дней с момента получения запроса.</p><h4>9. Заключительные положения</h4><p>9.1. Политика находится в открытом доступе на страницах Гайда и бесплатной статьи.</p><p>9.2. Оператор вправе вносить изменения в Политику. Новая редакция действует с момента размещения.</p></div></div>
+</footer>
+
+</body></html>

@@ -1,0 +1,881 @@
+<!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex,nofollow"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Оплата нейросетей по шагам</title>
+<style>
+/* Layout: пастельный лавандовый стиль гайда «AI-мультики» — герой по центру, секции из карточек, финальный блок-переход на платный гайд */
+:root{
+  color-scheme:light;
+  --lavender:#B7A6FF; --periwinkle:#7AA7FF; --pink:#FFB6D6;
+  --slivo:#6B5ACD; --ink:#3A3358; --ink-soft:#6C6690; --line:rgba(107,90,205,.14);
+  --card:#ffffff; --soft:#F4F0FF; --soft2:#FBF9FF;
+  --shadow:0 18px 50px -22px rgba(107,90,205,.45);
+  --radius:26px;
+  --ok:#2E9E7A; --warn:#D9822B; --bad:#D2557A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Segoe UI','Helvetica Neue',system-ui,Arial,sans-serif; color:var(--ink);
+  background:
+    radial-gradient(1100px 600px at 12% -5%, #E4DBFF 0%, transparent 55%),
+    radial-gradient(1000px 600px at 100% 8%, #DCEBFF 0%, transparent 50%),
+    radial-gradient(900px 700px at 50% 120%, #FFE6F0 0%, transparent 55%),
+    linear-gradient(180deg,#F6F2FF 0%, #FBF7FF 40%, #FFF7FA 100%);
+  background-color:#F6F2FF;
+  line-height:1.62; -webkit-font-smoothing:antialiased; font-size:16px;
+}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:22px}
+.accent{font-family:'Segoe Script','Comic Sans MS',cursive}
+
+.blob{position:fixed;border-radius:50%;filter:blur(6px);opacity:.5;z-index:0;pointer-events:none}
+.b1{width:120px;height:120px;top:18%;left:4%;background:radial-gradient(circle at 35% 30%,#fff,#C7B8FF)}
+.b2{width:80px;height:80px;top:52%;right:5%;background:radial-gradient(circle at 35% 30%,#fff,#A7D0FF)}
+.b3{width:64px;height:64px;top:78%;left:8%;background:radial-gradient(circle at 35% 30%,#fff,#FFC7DF)}
+.wrap,section{position:relative;z-index:1}
+
+.hero{padding-block:64px 30px;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.75);
+  border:1px solid var(--line);color:var(--slivo);font-weight:700;font-size:13px;letter-spacing:.14em;
+  text-transform:uppercase;padding:8px 16px;border-radius:100px;box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+h1{font-size:clamp(32px,6vw,58px);line-height:1.07;font-weight:800;margin:22px 0 10px;letter-spacing:-.02em;text-wrap:balance;
+  background:linear-gradient(120deg,#6B5ACD 0%, #7AA7FF 55%, #FF9EC7 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:clamp(16px,2.2vw,20px);color:var(--ink-soft);max-width:660px;margin:0 auto 26px}
+.hero .tagline{font-size:clamp(20px,3.4vw,28px);color:var(--slivo);margin-top:6px}
+.pillrow{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
+.pill{background:#fff;border:1px solid var(--line);border-radius:100px;padding:9px 16px;font-weight:600;font-size:14px;
+  color:var(--ink);box-shadow:0 8px 24px -14px rgba(107,90,205,.6)}
+.pill span{margin-right:6px}
+a.pill{text-decoration:none;transition:transform .2s ease}
+a.pill:hover{transform:translateY(-2px)}
+a.pill:focus-visible{outline:3px solid var(--periwinkle);outline-offset:2px}
+.hero-note{max-width:720px;margin:26px auto 0;text-align:left}
+
+section{padding-block:44px}
+.sec-tag{display:inline-block;font-weight:800;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--periwinkle);margin-bottom:8px}
+h2{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.12;margin-bottom:8px;color:var(--ink);text-wrap:balance}
+.sub{color:var(--ink-soft);font-size:16px;max-width:680px;margin-bottom:26px}
+
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);
+  transition:transform .25s ease, box-shadow .25s ease;min-width:0}
+.card:hover{transform:translateY(-4px);box-shadow:0 26px 60px -24px rgba(107,90,205,.55)}
+.chip{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:14px;
+  background:linear-gradient(140deg,#EDE7FF,#DCEBFF);box-shadow:inset 0 0 0 1px rgba(255,255,255,.7)}
+.card h3{font-size:19px;font-weight:800;margin-bottom:6px;text-wrap:balance}
+.card p{font-size:14.5px;color:var(--ink-soft)}
+.card .meta{margin-top:12px;font-size:13px;font-weight:700;color:var(--slivo)}
+.lvl{display:inline-block;font-size:12px;font-weight:800;color:var(--slivo);background:#F0ECFF;padding:4px 12px;border-radius:100px;margin-bottom:10px;letter-spacing:.02em}
+.big{font-size:30px;font-weight:800;line-height:1.15;background:linear-gradient(120deg,#6B5ACD,#7AA7FF);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.breakdown{list-style:none;margin-top:14px;display:grid;gap:8px}
+.breakdown li{font-size:13.5px;color:var(--ink-soft);padding-left:20px;position:relative;line-height:1.45}
+.breakdown li:before{content:'•';position:absolute;left:4px;color:var(--periwinkle);font-weight:800}
+.breakdown li.no:before{content:'✕';left:2px;color:var(--bad);font-size:12px}
+.breakdown li.yes:before{content:'✓';left:2px;color:var(--ok)}
+
+/* способы */
+.tool{display:flex;gap:16px;align-items:flex-start}
+.tool > div:last-child{min-width:0}
+.tool .badge{flex:0 0 auto;width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:20px;color:#fff;box-shadow:var(--shadow)}
+.tool h3{font-size:18px}
+.tag-role{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  padding:4px 10px;border-radius:100px;background:#F0ECFF;color:var(--slivo);margin-bottom:8px}
+.tag-role.new{background:#E3F6EE;color:var(--ok)}
+.suits{display:inline-block;font-size:12px;font-weight:800;color:#fff;background:linear-gradient(120deg,#8E7BFF,#7AA7FF);
+  padding:4px 12px;border-radius:100px;margin-bottom:10px;letter-spacing:.02em}
+.suits.pink{background:linear-gradient(120deg,#FF9EC7,#FFB6D6)}
+.suits.blue{background:linear-gradient(120deg,#7ACBFF,#7AA7FF)}
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.pc ul{list-style:none;display:grid;gap:5px;align-content:start}
+.pc li{font-size:13px;color:var(--ink-soft);padding-left:20px;position:relative;line-height:1.45}
+.pc .plus li:before{content:'+';position:absolute;left:3px;color:var(--ok);font-weight:800}
+.pc .minus li:before{content:'–';position:absolute;left:3px;color:var(--bad);font-weight:800}
+.pc b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;color:var(--slivo)}
+.cost{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin:4px 0 12px;padding:10px 14px;border-radius:14px;background:var(--soft2);border:1px solid var(--line)}
+.cost b{font-size:18px;font-weight:800;color:var(--slivo);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cost span{font-size:12.5px;color:var(--ink-soft)}
+.agg .btn{margin-top:14px;padding:12px 22px;font-size:14.5px}
+.btn.pink{background:linear-gradient(120deg,#FF9EC7,#FFB6D6)}
+.btn.blue{background:linear-gradient(120deg,#7ACBFF,#7AA7FF)}
+.nov{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:#E3F6EE;color:var(--ok);margin-bottom:8px}
+.lock{margin-top:14px;font-size:13.5px;color:var(--slivo);background:var(--soft);border:1.5px dashed rgba(107,90,205,.35);
+  border-radius:14px;padding:11px 14px;font-weight:600;line-height:1.5}
+
+/* таблицы */
+.tablecard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:640px}
+th,td{padding:14px 18px;text-align:left;vertical-align:top}
+thead th{background:linear-gradient(120deg,#EDE7FF,#DCEBFF);color:var(--slivo);font-weight:800;font-size:13px;letter-spacing:.03em;text-transform:uppercase}
+tbody tr{border-top:1px solid var(--line)}
+tbody tr:nth-child(even){background:var(--soft2)}
+td strong{color:var(--ink)}
+.money{font-weight:800;color:var(--slivo);white-space:nowrap;font-variant-numeric:tabular-nums}
+.dot{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:13px;white-space:nowrap}
+.dot:before{content:'';width:9px;height:9px;border-radius:50%;background:currentColor;flex:0 0 auto}
+.dot.ok{color:var(--ok)} .dot.mid{color:var(--warn)} .dot.bad{color:var(--bad)}
+.subhead{font-size:20px;font-weight:800;margin:30px 0 14px;color:var(--ink)}
+
+.callout{background:linear-gradient(135deg,#FFF1F6,#F3EEFF);border:1px solid var(--line);border-radius:var(--radius);
+  padding:26px 28px;box-shadow:var(--shadow);display:flex;gap:18px;align-items:flex-start}
+.callout > div:last-child{min-width:0}
+.callout .ic{font-size:30px}
+.callout h3{font-size:18px;margin-bottom:6px;color:var(--slivo)}
+.callout p{font-size:14.5px;color:var(--ink-soft)}
+.callout a{color:var(--slivo);font-weight:600}
+.callout.warn{background:linear-gradient(135deg,#FFF4EC,#FBEFFF)}
+
+/* переход на платный гайд */
+.offer{background:#fff;border:1px solid var(--line);border-radius:32px;box-shadow:0 30px 70px -30px rgba(107,90,205,.6);
+  display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);overflow:hidden}
+.offer .l{padding:34px 34px 30px}
+.offer .r{padding:34px 30px;background:linear-gradient(150deg,#EDE7FF,#DCEBFF 60%,#FFE6F0);display:flex;flex-direction:column;justify-content:center;gap:12px;text-align:center}
+.offer h2{margin-bottom:10px}
+.offer .inside{list-style:none;display:grid;gap:10px;margin-top:18px}
+.offer .inside li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--ink);font-weight:600;line-height:1.45}
+.offer .inside li span.m{flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:linear-gradient(140deg,#8E7BFF,#7AA7FF);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+.price{font-size:52px;font-weight:800;line-height:1;color:var(--slivo);font-variant-numeric:tabular-nums}
+.price small{font-size:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:15px 26px;border-radius:100px;
+  background:linear-gradient(120deg,#8E7BFF,#7AA7FF);color:#fff;font-weight:800;font-size:16px;text-decoration:none;
+  box-shadow:0 12px 26px -12px rgba(107,90,205,.85);transition:transform .2s ease, box-shadow .2s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 34px -14px rgba(107,90,205,.95)}
+.btn:focus-visible{outline:3px solid var(--slivo);outline-offset:3px}
+.small{font-size:13px;color:var(--ink-soft)}
+
+footer{margin-top:40px;padding-block:40px 60px;text-align:center}
+.footbar{background:linear-gradient(120deg,#8E7BFF,#7AA7FF);border-radius:var(--radius);padding:34px 28px;color:#fff;box-shadow:var(--shadow)}
+.footbar .accent{font-size:26px;opacity:.95}
+.footbar h3{font-size:24px;font-weight:800;margin:6px 0 8px}
+.footbar p{opacity:.92;font-size:15px;max-width:560px;margin:0 auto}
+.checklist{display:grid;gap:10px;margin-top:6px}
+.check{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px 18px}
+.check .mark{flex:0 0 34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#B9A6FF,#FFB6D6);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px}
+.check p{margin:0;font-size:14.5px}
+.asklist .check p:before{content:"«";color:var(--slivo)}.asklist .check p:after{content:"»";color:var(--slivo)}
+.sitelinks{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 18px}
+.sitelinks a{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:100px;background:#fff;border:1.5px solid var(--line);font-weight:700;font-size:14.5px;color:var(--slivo);text-decoration:none}
+.sitelinks a:hover{border-color:var(--slivo)}
+.sitelinks a small{font-weight:500;color:var(--ink-soft)}
+.legal-links{margin-top:14px;font-size:12.5px;color:var(--ink-soft)}
+.legal-links a{color:var(--slivo);font-weight:600}
+.legal{display:none;position:fixed;inset:0;z-index:999;background:rgba(58,51,88,.55);padding:24px 16px;overflow-y:auto}
+.legal:target{display:block}
+.legal .lbox{background:#fff;max-width:760px;margin:0 auto;border-radius:24px;padding:34px 30px;text-align:left;position:relative;box-shadow:0 30px 70px -30px rgba(58,51,88,.7)}
+.legal .lclose{position:absolute;top:14px;right:18px;font-size:30px;line-height:1;color:var(--slivo);text-decoration:none;font-weight:800}
+.legal h3{font-size:22px;color:var(--ink);margin:0 34px 4px 0}
+.legal .ld{font-size:12.5px;color:var(--ink-soft);margin-bottom:14px}
+.legal h4{font-size:15.5px;color:var(--slivo);margin:18px 0 6px}
+.legal p{font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0 0 6px}
+.legal a{color:var(--slivo)}
+@media(max-width:600px){.legal .lbox{padding:26px 20px}}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--ink-soft);max-width:760px;margin-left:auto;margin-right:auto}
+.sources{font-size:12.5px;color:var(--ink-soft);margin-top:14px}
+.sources a{color:var(--slivo)}
+
+@media(max-width:860px){.g3{grid-template-columns:1fr}.offer{grid-template-columns:1fr}}
+@media(max-width:600px){.wrap{padding-inline:16px}.g2{grid-template-columns:1fr}.tool{flex-direction:column}
+  .callout{flex-direction:column;padding:22px}.pc{grid-template-columns:1fr}.offer .l,.offer .r{padding:26px 22px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+.steps{display:grid;gap:16px}
+.step{display:grid;grid-template-columns:64px minmax(0,1fr) minmax(0,240px);gap:18px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow)}
+.step .num{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;color:#fff;background:linear-gradient(140deg,#8E7BFF,#7AA7FF);box-shadow:0 10px 24px -10px rgba(107,90,205,.7)}
+.step h3{font-size:18px;margin-bottom:4px}
+.step p{font-size:14.5px;color:var(--ink-soft)}
+.step .tools-line{margin-top:8px;font-size:12.5px;color:var(--slivo);font-weight:700}
+.step .tools-line a,td a{color:var(--slivo)}
+.shot{aspect-ratio:16/10;max-width:100%;border-radius:16px;border:2px dashed rgba(107,90,205,.35);background:var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px;padding:12px;color:var(--slivo)}
+.shot .ico{font-size:24px}
+.shot span{font-size:12px;font-weight:700;line-height:1.35}
+.minis{display:grid;gap:16px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.minis.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.mini{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;min-width:0}
+.mini .top{display:flex;align-items:center;gap:10px}
+.mini .n{flex:0 0 auto;width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#fff;background:linear-gradient(140deg,#8E7BFF,#7AA7FF)}
+.mini h3{font-size:16px;line-height:1.3}
+.mini p{font-size:14px;color:var(--ink-soft)}
+.mini .tag{align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:100px;background:#F0ECFF;color:var(--slivo)}
+.mini .tools-line{font-size:12.5px;color:var(--slivo);font-weight:700}
+.mini .tools-line a,.mini p a{color:var(--slivo);font-weight:700}
+.mini .shot{margin-top:auto;aspect-ratio:auto;height:130px}
+.minis.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.skip{display:inline-flex;align-items:center;gap:8px;margin-top:4px;font-weight:700;font-size:14px;color:var(--slivo);text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:100px;padding:9px 16px;box-shadow:0 8px 24px -14px rgba(107,90,205,.6)}
+.pillrow .pill{font-size:13.5px;padding:8px 14px}
+@media(max-width:860px){.step{grid-template-columns:64px minmax(0,1fr)}.step .shot{grid-column:1/-1}.minis,.minis.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.step{grid-template-columns:1fr}.minis,.minis.two,.minis.four{grid-template-columns:1fr}}
+.shot.img{position:relative;padding:0;gap:0;aspect-ratio:auto;height:230px;border:1px solid var(--line);background:#F7F5FC;overflow:hidden;text-decoration:none;transition:transform .2s ease}
+.shot.img:hover{transform:translateY(-2px)}
+.shot.img:focus-visible{outline:3px solid var(--periwinkle);outline-offset:2px}
+.shot.img img{width:100%;height:100%;object-fit:contain;display:block}
+.shot.img .cap{position:absolute;left:8px;top:8px;background:rgba(255,255,255,.92);color:var(--slivo);font-size:11px;font-weight:800;padding:2px 8px;border-radius:100px;box-shadow:0 2px 8px rgba(107,90,205,.2)}
+@media(max-width:860px){.step .shot.img{height:300px}}
+.minis.vpn .shot.img{margin-top:auto;height:440px;border-radius:16px}
+.minis.vpn .mini p{flex:0 0 auto}
+@media(max-width:600px){.minis.vpn .shot.img{height:520px}}
+.minis.vpn .shot.img.land{height:auto;aspect-ratio:auto}
+.minis.vpn .shot.img.land img{height:auto}
+.minis.vpn .shot.img.land + .shot.img.land{margin-top:12px}
+.minis.vpn .mini.wide{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);column-gap:24px;align-items:start}
+.minis.vpn .mini.wide > .top,.minis.vpn .mini.wide > p{grid-column:1}
+.minis.vpn .mini.wide > .shot{grid-column:2;grid-row:1 / span 3;margin-top:0;max-width:300px}
+@media(max-width:860px){.minis.vpn .mini.wide > .shot{max-width:320px}}
+@media(max-width:860px){.minis.vpn .mini.wide{display:flex}}
+.minis.vpn.five{grid-template-columns:repeat(5,minmax(0,1fr))}
+.minis.vpn .shot.ph{margin-top:auto;aspect-ratio:auto;height:300px}
+@media(max-width:1000px){.minis.vpn.five{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:860px){.minis.vpn.five{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.minis.vpn.five{grid-template-columns:1fr}}
+.minis.vpn.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:1000px){.minis.vpn.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.minis.vpn.four{grid-template-columns:1fr}}
+.reqs{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 14px}
+.req{display:inline-block;font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:100px;line-height:1.35}
+.req.ok{background:#E3F6EE;color:#1F7A5C}
+.req.warn{background:#FFF1E3;color:#A65A12}
+td .req{font-size:11.5px;padding:3px 9px;margin:2px 0}
+.mini .shot.img{position:relative;padding:0;gap:0;height:auto;aspect-ratio:auto;border:1px solid var(--line);background:#F7F5FC;overflow:hidden;text-decoration:none;border-radius:16px}
+.mini .shot.img img{width:100%;height:auto;display:block}
+.mini .shot.img .cap{position:absolute;left:8px;top:8px;background:rgba(255,255,255,.92);color:var(--slivo);font-size:11px;font-weight:800;padding:2px 8px;border-radius:100px}
+.mini .shot.img + .shot.img{margin-top:10px}
+.minis.vpn .shot.img.sm{height:260px}
+@media(max-width:600px){.minis.vpn .shot.img.sm{height:320px}}
+.textsteps-card{background:none;border:0;box-shadow:none;padding:0}
+.textsteps-card:hover{transform:none;box-shadow:none}
+.textsteps{list-style:none;counter-reset:ts;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.textsteps li{counter-increment:ts;position:relative;background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px 22px 22px 96px;box-shadow:var(--shadow);font-size:14.5px;color:var(--ink-soft);line-height:1.6;min-width:0}
+.textsteps li:before{content:counter(ts);position:absolute;left:22px;top:22px;width:56px;height:56px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;color:#fff;background:linear-gradient(140deg,#8E7BFF,#7AA7FF);box-shadow:0 10px 24px -10px rgba(107,90,205,.7)}
+.textsteps li b{display:block;color:var(--ink);font-size:17px;font-weight:800;line-height:1.3;margin-bottom:8px}
+.textsteps li b:before{content:"Шаг " counter(ts);display:block;width:max-content;margin-bottom:8px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--slivo);background:#F0ECFF;padding:3px 11px;border-radius:100px}
+.textsteps a{color:var(--slivo);font-weight:700}
+.textsteps .route{display:block;margin-top:12px;padding:11px 14px;border-radius:14px;background:var(--soft);border:1.5px dashed rgba(107,90,205,.35);color:var(--slivo);font-weight:600;font-size:13.5px;line-height:1.5}
+.textsteps-card>p.small{margin-top:16px!important;padding:13px 16px;border-radius:16px;background:var(--soft);border:1.5px dashed rgba(107,90,205,.35);color:var(--slivo);font-weight:600;font-size:13.5px}
+.textsteps-card>p.small:before{content:"💡 "}
+@media(max-width:700px){.textsteps{grid-template-columns:1fr}.textsteps li{padding:20px 18px 20px 86px}.textsteps li:before{left:18px;top:20px;width:52px;height:52px}}
+.minis.two .shot.img.land{margin-top:auto}
+.mini .shot.img.land + .shot.img.land{margin-top:10px}
+#market .minis{align-items:start}
+#market .minis.two .shot.img{max-width:330px}
+#market .mini .shot.img{margin-top:10px}
+#market .mini .shot.img img{max-height:420px;object-fit:contain}
+</style>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+
+<header class="hero wrap">
+  <span class="eyebrow">✦ Пошаговый гайд · обновлено 10 октября 2026</span>
+  <h1>Оплата ChatGPT, Gemini и&nbsp;Claude из&nbsp;России по&nbsp;шагам</h1>
+  <p class="lead">Всё, что нужно, чтобы с нуля завести аккаунт и оформить подписку: регистрация, Gmail из России и 9 способов оплаты со скриншотами. Если какой-то способ перестанет работать, я обновлю гайд.</p>
+  <div class="tagline accent">VPN → почта → аккаунт → оплата → готово ✨</div>
+  <div class="callout" style="max-width:760px;margin:26px auto 0;text-align:left"><div class="ic">📖</div><div><h3>Гайд большой, но читать всё не нужно</h3><p>Здесь собраны все рабочие способы, чтобы каждый нашёл свой. Тебе хватит одного: выбери удобный способ оплаты по таблице «С чего начать», пройди только его шаги и пользуйся нейросетью. Остальные разделы можно пропустить. Гайд — это инструкция: сами подписки оплачиваются отдельно выбранным способом. Кнопки ниже кликабельные: нажми на нужную, и сразу попадёшь в этот раздел.</p></div></div>
+  <nav class="pillrow" aria-label="Содержание">
+    <a class="pill" href="#choose"><span>🧭</span>С чего начать</a>
+    <a class="pill" href="#vpn"><span>🌐</span>VPN</a>
+    <a class="pill" href="#prep"><span>🛡️</span>Подготовка</a>
+    <a class="pill" href="#gmail"><span>📧</span>Gmail из России</a>
+    <a class="pill" href="#signup"><span>🔑</span>Регистрация</a>
+    <a class="pill" href="#apps"><span>📲</span>Приложения на телефон</a>
+    <a class="pill" href="#regbot"><span>🤖</span>Бот под ключ</a>
+    <a class="pill" href="#ozon"><span>🟦</span>Озон</a>
+    <a class="pill" href="#mts"><span>🟥</span>МТС</a>
+    <a class="pill" href="#tbank"><span>🟨</span>Т-Банк</a>
+    <a class="pill" href="#market"><span>🛒</span>FunPay, Plati, GGSel</a>
+    <a class="pill" href="#apple"><span>🍏</span>Apple</a>
+    <a class="pill" href="#card"><span>💳</span>Виртуальная карта</a>
+    <a class="pill" href="#middle"><span>🤝</span>Друг за границей</a>
+    <a class="pill" href="#agg"><span>🧩</span>Агрегаторы</a>
+    <a class="pill" href="#safety"><span>🔒</span>Безопасность</a>
+    <a class="pill" href="#faq"><span>🛠️</span>Если что-то пошло не так</a>
+  </nav>
+</header>
+
+<section class="wrap" id="choose">
+  <span class="sec-tag">00 — С чего начать</span>
+  <h2>Выбери свой маршрут</h2>
+  <p class="sub">Не нужно читать гайд целиком. Найди свою ситуацию в таблице и переходи сразу к нужному разделу.</p>
+  <div class="tablecard">
+    <table>
+      <thead><tr><th>Твоя ситуация</th><th>Что подойдёт</th><th>Что нужно</th><th>Раздел</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Сначала всем</strong></td><td>Установить и настроить VPN</td><td>Без него ничего не откроется</td><td><a href="#vpn">01</a></td></tr>
+        <tr><td><strong>Нет аккаунта и не хочу разбираться</strong></td><td>Бот AI GARANT REG: зарегистрирует и оплатит за тебя</td><td><span class="req ok">Ничего, даже почты</span> <span class="req warn">До 24 часов</span></td><td><a href="#regbot">05</a></td></tr>
+        <tr><td><strong>Нет аккаунта, хочу завести самостоятельно</strong></td><td>VPN → почта → регистрация, потом способ оплаты</td><td>Почта Gmail или Outlook</td><td><a href="#vpn">01–04</a></td></tr>
+        <tr><td><strong>Аккаунт есть, нужно быстро и один раз</strong></td><td>Озон Банк или МТС Оплата</td><td><span class="req warn">Готовый аккаунт</span></td><td><a href="#ozon">06–07</a></td></tr>
+        <tr><td><strong>Только для iPhone, есть Т-Банк</strong></td><td>Подарочная карта Apple прямо в приложении Т-Банка</td><td><span class="req warn">Только iPhone</span> <span class="req warn">Карта Т-Банка</span></td><td><a href="#tbank">08</a></td></tr>
+        <tr><td><strong>Аккаунт есть, хочу подешевле</strong></td><td>FunPay, Plati или GGSel</td><td><span class="req warn">Готовый аккаунт</span></td><td><a href="#market">09</a></td></tr>
+        <tr><td><strong>Только для iPhone</strong></td><td>Подарочная карта App Store на Apple ID США или Турции</td><td><span class="req warn">Только iPhone</span></td><td><a href="#apple">10</a></td></tr>
+        <tr><td><strong>Плачу за несколько сервисов</strong></td><td>Своя виртуальная карта</td><td><span class="req warn">Готовый аккаунт</span> <span class="req warn">Выпуск карты</span></td><td><a href="#card">11</a></td></tr>
+        <tr><td><strong>Есть друг с зарубежной картой</strong></td><td>Друг оплачивает со своей карты</td><td><span class="req warn">Готовый аккаунт</span></td><td><a href="#middle">12</a></td></tr>
+        <tr><td><strong>Не хочу VPN и настройки</strong></td><td>Агрегатор в рублях</td><td><span class="req ok">Ничего</span> <span class="req warn">Не официальная подписка</span></td><td><a href="#agg">13</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="subhead">Способы оплаты: от простого к сложному</h3>
+  <div class="tablecard">
+    <table>
+      <thead><tr><th>#</th><th>Способ</th><th>Что нужно от тебя</th><th>Продление</th><th>Цена</th></tr></thead>
+      <tbody>
+        <tr><td class="money">1</td><td><a href="#regbot"><strong>Бот AI GARANT REG</strong></a><br><span class="small">Самый простой: оплачиваешь российской картой, а аккаунт и подписку подключают за тебя. Есть гарантия замены аккаунта</span></td><td>Ничего: почту и аккаунт создадут. Подключение до 24 часов</td><td>Каждый месяц через бота</td><td class="money">Claude Pro 2 690 ₽<br>ChatGPT Plus 2 590 ₽</td></tr>
+        <tr><td class="money">2</td><td><a href="#ozon"><strong>Озон Банк</strong></a></td><td>Готовый аккаунт ChatGPT (регион США или новый)</td><td>Вручную каждый месяц</td><td class="money">Plus ≈ 2 760 ₽</td></tr>
+        <tr><td class="money">3</td><td><a href="#mts"><strong>МТС Оплата</strong></a></td><td>Готовый аккаунт</td><td>Вручную каждый месяц</td><td class="money">Plus ≈ 2 450 ₽</td></tr>
+        <tr><td class="money">4</td><td><a href="#tbank"><strong>Т-Банк: подарочная карта Apple</strong></a><br><span class="req warn">Только для iPhone</span></td><td>Айфон, Apple ID США и карта Т-Банка</td><td>Сама, с баланса Apple</td><td class="money">цена в приложении</td></tr>
+        <tr><td class="money">5</td><td><a href="#market"><strong>FunPay, Plati, GGSel</strong></a></td><td>Готовый аккаунт и надёжный продавец</td><td>Вручную каждый месяц</td><td class="money">Plus ≈ 2 200–2 300 ₽</td></tr>
+        <tr><td class="money">6</td><td><a href="#apple"><strong>Apple ID + подарочная карта</strong></a><br><span class="req warn">Только для iPhone</span></td><td>Айфон и Apple ID США или Турции</td><td>Сама, с баланса Apple</td><td class="money">≈ 1 800–2 300 ₽</td></tr>
+        <tr><td class="money">7</td><td><a href="#card"><strong>Виртуальная карта</strong></a></td><td>Готовый аккаунт и выпуск карты</td><td>Сама, с карты</td><td class="money">≈ 1 600–2 200 ₽ + выпуск</td></tr>
+        <tr><td class="money">8</td><td><a href="#middle"><strong>Друг за границей</strong></a></td><td>Готовый аккаунт</td><td>Сама, с карты друга</td><td class="money">$20 по курсу</td></tr>
+        <tr><td class="money">9</td><td><a href="#agg"><strong>Агрегаторы</strong></a></td><td>Ничего, даже VPN. Но это не официальная подписка</td><td>Подписка самого агрегатора</td><td class="money">от 890 ₽</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="wrap" id="vpn">
+  <span class="sec-tag">01 — VPN</span>
+  <h2>Сначала VPN: без него ничего не откроется</h2>
+  <p class="sub">ChatGPT, Gemini и Claude из России без VPN не открываются, а плохой сервер может испортить и регистрацию, и оплату. Нужен платный VPN с серверами в Европе или США. Я пользуюсь двумя и подключаю их через одно приложение.</p>
+  <a class="skip" href="#prep">VPN уже есть и работает? Переходи к регистрации почты →</a>
+  <div style="height:18px"></div>
+  <div class="minis vpn">
+    <div class="mini"><div class="top"><div class="n">1</div><h3>Скачай приложение Happ</h3></div><p>Это приложение-клиент: сам VPN покупается отдельно, а подключается через него. В App Store найди <strong>Happ - Proxy Utility</strong> от Flyfrog LLC. На Android ищи в Google Play приложение с таким же названием и значком. После установки на экране появится значок <strong>Happ Plus</strong>, это оно и есть.</p><div class="tools-line">Скачать для iPhone: <a href="https://apps.apple.com/us/app/happ-proxy-utility/id6504287215?l=ru" target="_blank" rel="noopener">Happ в App Store</a></div><a class="shot img land" href="img/1.1.jpg" target="_blank" rel="noopener" title="Открыть скрин 1.1 целиком"><img src="img/1.1.jpg" alt="Happ - Proxy Utility в поиске App Store" loading="lazy"><span class="cap">1.1</span></a><a class="shot img land" href="img/1.0.jpg" target="_blank" rel="noopener" title="Открыть скрин целиком"><img src="img/1.0.jpg" alt="Значок Happ Plus на экране телефона" loading="lazy"><span class="cap">после установки</span></a></div>
+    <div class="mini"><div class="top"><div class="n">2</div><h3>Купи VPN и нажми «+»</h3></div><p>Оформи подписку в Telegram-боте VPN-сервиса. Бот пришлёт ссылку на подписку, скопируй её. Потом открой Happ и нажми <strong>«+»</strong> в правом верхнем углу.</p><div class="tools-line">GRU VPN: <a href="https://t.me/GruVPNbot" target="_blank" rel="noopener">бот в Telegram</a> · Appa VPN: <a href="https://t.me/appavpn" target="_blank" rel="noopener">Telegram</a></div><a class="shot img" href="img/1.2.jpg" target="_blank" rel="noopener" title="Открыть скрин 1.2 целиком"><img src="img/1.2.jpg" alt="Кнопка «+» в правом верхнем углу Happ" loading="lazy"><span class="cap">1.2</span></a></div>
+    <div class="mini"><div class="top"><div class="n">3</div><h3>Вставь ссылку на подписку</h3></div><p>В меню выбери <strong>«Вставить из буфера обмена»</strong>: Happ сам подтянет скопированную ссылку. Если бот прислал QR-код, выбери «QR-код». После этого внизу появится карточка VPN со списком серверов.</p><a class="shot img" href="img/1.3.jpg" target="_blank" rel="noopener" title="Открыть скрин 1.3 целиком"><img src="img/1.3.jpg" alt="Меню добавления: URL подписки, буфер обмена, QR-код, ручной ввод" loading="lazy"><span class="cap">1.3</span></a></div>
+    <div class="mini"><div class="top"><div class="n">4</div><h3>Сделай тест пинга</h3></div><p>Пока VPN выключен, нажми значок <strong>спидометра</strong> справа от названия подписки. Happ проверит все серверы. Делай это каждый раз перед заходом в нейросеть: сервер, который работал вчера, сегодня может лежать.</p><a class="shot img" href="img/1.4.jpg" target="_blank" rel="noopener" title="Открыть скрин 1.4 целиком"><img src="img/1.4.jpg" alt="Значок спидометра для теста пинга" loading="lazy"><span class="cap">1.4</span></a></div>
+    <div class="mini"><div class="top"><div class="n">5</div><h3>Выбери страну и нажми на кружок</h3></div><p>Справа от каждого сервера появится отклик в миллисекундах (мс): чем меньше число, тем быстрее. Нажми на нужную страну, а потом на большой кружок сверху. Серверы с пометкой <strong>(Gemini)</strong> подходят для Gemini.</p><a class="shot img" href="img/1.5.jpg" target="_blank" rel="noopener" title="Открыть скрин 1.5 целиком"><img src="img/1.5.jpg" alt="Список серверов с пингом и кнопка подключения" loading="lazy"><span class="cap">1.5</span></a></div>
+    <div class="mini"><div class="top"><div class="n">6</div><h3>Проверь, что VPN включился</h3></div><p>В кружке появится надпись <strong>«Подключен»</strong> и таймер, а вверху экрана значок VPN. Теперь можно открывать нейросеть.</p><a class="shot img" href="img/1.6.jpg" target="_blank" rel="noopener" title="Открыть скрин 1.6 целиком"><img src="img/1.6.jpg" alt="Happ подключён: надпись «Подключен» и таймер" loading="lazy"><span class="cap">1.6</span></a></div>
+    <div class="mini wide"><div class="top"><div class="n">7</div><h3>Как выглядит нерабочий сервер</h3></div><p>Если вместо цифры стоит <strong>n/a</strong>, сервер сейчас не работает. Если пинг в тысячах, например <strong>5308 мс</strong> или <strong>5051 мс</strong>, всё будет грузиться очень долго. К таким не подключайся, бери сервер с пингом в сотнях. Это касается всех серверов, в том числе «Белого списка» внизу списка.</p><a class="shot img land" href="img/1.7.jpg" target="_blank" rel="noopener" title="Открыть скрин 1.7 целиком"><img src="img/1.7.jpg" alt="Серверы «Белый список» внизу списка" loading="lazy"><span class="cap">1.7</span></a></div>
+  </div>
+
+  <div class="tablecard" style="margin-top:18px">
+    <table>
+      <thead><tr><th>Отклик</th><th>Что значит</th><th>Подключаться?</th></tr></thead>
+      <tbody>
+        <tr><td class="money">сотни мс</td><td>Например, 174, 265, 561 — сервер рабочий, чем меньше, тем быстрее</td><td><span class="dot ok">да</span></td></tr>
+        <tr><td class="money">тысячи мс</td><td>Например, 1583 или 5308 — всё будет грузиться очень долго</td><td><span class="dot mid">лучше другой</span></td></tr>
+        <tr><td class="money">n/a</td><td>Сервер сейчас не работает</td><td><span class="dot bad">нет</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card">
+      <span class="lvl">ChatGPT и Claude</span>
+      <h3>Германия</h3>
+      <p>Обычно стабильно работает. Я сама сижу на Германии. Подходит и Appa VPN, и GRU VPN.</p>
+    </div>
+    <div class="card">
+      <span class="lvl">Gemini</span>
+      <h3>GRU VPN, Швейцария</h3>
+      <p>С Appa VPN в Gemini лучше не заходить вообще, хотя для остальных нейросетей его серверы работают хорошо. Для Gemini выбирай Швейцарию в GRU VPN и тоже сначала проверяй пинг.</p>
+    </div>
+  </div>
+
+  <div class="callout warn" style="margin-top:18px">
+    <div class="ic">🚨</div>
+    <div><h3>Если VPN упал</h3><p>Понятно по тому, что нейросети вдруг перестали грузиться. Сразу закрой вкладки и приложения нейросетей, чтобы они не увидели тебя без VPN с российского адреса. Потом сделай новый тест пинга, выбери рабочий сервер и только после подключения заходи обратно.</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="prep">
+  <span class="sec-tag">02 — Подготовка · 5 минут</span>
+  <h2>Отдельная почта под нейросети</h2>
+  <p class="sub">Лучше Gmail. Не используй основную почту, к которой привязаны банк и Госуслуги: если что-то пойдёт не так, рисковать будешь только этим ящиком.</p>
+  <a class="skip" href="#signup">Уже есть почта Gmail? Переходи к регистрации в нейросетях →</a>
+  <div style="height:18px"></div>
+  <div class="minis two">
+    <div class="mini"><div class="top"><div class="n">1</div><h3>Заведи новую почту</h3></div><p>Как создать Gmail из России, если не приходят коды, — в следующем разделе. Если Gmail не выходит, подойдёт Outlook.</p></div>
+    <div class="mini"><div class="top"><div class="n">2</div><h3>Включи двухэтапную защиту</h3></div><p>Google → Управление аккаунтом → Безопасность → Двухэтапная аутентификация. Добавь резервную почту.</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="gmail">
+  <span class="sec-tag">03 — Почта из России</span>
+  <h2>Как создать Gmail, если не приходят коды</h2>
+  <p class="sub">Google часто не присылает SMS на российские номера, и регистрация застревает на подтверждении. Надёжнее всего регистрироваться через приложение Gmail на телефоне: там номер можно пропустить совсем. Ниже есть и короткая инструкция через сайт.</p>
+
+  <h3 class="subhead">Через приложение Gmail на телефоне</h3>
+  <p class="sub">Это официальная почта Google в виде приложения. На Android оно обычно уже стоит, на айфон скачай «Gmail» из App Store. Здесь номер телефона можно вообще не указывать, а VPN нужен только на последнем шаге.</p>
+  <div class="minis vpn">
+    <div class="mini"><div class="top"><div class="n">1</div><h3>Скачай Gmail</h3></div><p>На айфоне найди в App Store «Gmail — почта от Google». На Android оно обычно уже стоит.</p><a class="shot img sm" href="img/3.5.jpg" target="_blank" rel="noopener" title="Открыть скрин 3.5 целиком"><img src="img/3.5.jpg" alt="Gmail в App Store" loading="lazy"><span class="cap">3.5</span></a></div>
+    <div class="mini"><div class="top"><div class="n">2</div><h3>Открой Gmail и добавь аккаунт</h3></div><p>Нажми «Войти», а потом «Добавить аккаунт». Если в Gmail уже есть аккаунт, нажми на аватарку → «Добавить аккаунт».</p><a class="shot img land" href="img/3.6.jpg" target="_blank" rel="noopener" title="Открыть скрин 3.6 целиком"><img src="img/3.6.jpg" alt="Gmail: Войти и Добавить аккаунт" loading="lazy"><span class="cap">3.6</span></a></div>
+    <div class="mini"><div class="top"><div class="n">3</div><h3>Выбери Google и «Создать аккаунт»</h3></div><p>В списке почт выбери «Google». На экране входа нажми «Создать аккаунт» → «Для личного использования».</p><a class="shot img land" href="img/3.7.jpg" target="_blank" rel="noopener" title="Открыть скрин 3.7 целиком"><img src="img/3.7.jpg" alt="Google: Создать аккаунт для личного использования" loading="lazy"><span class="cap">3.7</span></a></div>
+    <div class="mini"><div class="top"><div class="n">4</div><h3>Дата рождения, пол и адрес</h3></div><p>Укажи дату так, чтобы тебе было больше 18 лет. Потом придумай свободный адрес @gmail.com и пароль, сразу запиши их.</p><a class="shot img land" href="img/3.8.jpg" target="_blank" rel="noopener" title="Открыть скрин 3.8 целиком"><img src="img/3.8.jpg" alt="Дата рождения и выбор адреса" loading="lazy"><span class="cap">3.8</span></a></div>
+    <div class="mini"><div class="top"><div class="n">5</div><h3>Пропусти номер и отклони всё</h3></div><p>На экране «Добавьте номер телефона» нажми «Пропустить». На экранах конфиденциальности каждый раз нажимай «Отклонить все».</p><a class="shot img land" href="img/3.9.jpg" target="_blank" rel="noopener" title="Открыть скрин 3.9 целиком"><img src="img/3.9.jpg" alt="Пропустить номер и Отклонить все" loading="lazy"><span class="cap">3.9</span></a></div>
+    <div class="mini"><div class="top"><div class="n">6</div><h3>Включи VPN</h3></div><p>Только сейчас, перед последним шагом, включи VPN с зарубежным сервером.</p><a class="shot img sm" href="img/1.6.jpg" target="_blank" rel="noopener" title="Открыть скрин 3.10 целиком"><img src="img/1.6.jpg" alt="VPN подключён" loading="lazy"><span class="cap">3.10</span></a></div>
+    <div class="mini"><div class="top"><div class="n">7</div><h3>Подтверди и войди</h3></div><p>Подтверди выбранные настройки, прими соглашение и выбери новый аккаунт. Он сразу откроется в Gmail. Для самой почты VPN больше не нужен.</p><a class="shot img land" href="img/3.11.jpg" target="_blank" rel="noopener" title="Открыть скрин 3.11 целиком"><img src="img/3.11.jpg" alt="Подтверждение настроек и выбор аккаунта" loading="lazy"><span class="cap">3.11</span></a></div>
+    <div class="mini"><div class="top"><div class="n">8</div><h3>Добавь резервную почту</h3></div><p>Аккаунт Google → «Безопасность» → «Резервный адрес электронной почты». Номера телефона нет, поэтому только через эту почту получится восстановить доступ, если Google заподозрит что-то неладное.</p></div>
+  </div>
+
+  <h3 class="subhead">Другой способ: через сайт в браузере</h3>
+  <p class="sub">Если приложение не подходит, аккаунт можно создать на сайте. Здесь Google чаще просит номер, поэтому заранее заведи резервную почту, например на Яндексе или Рамблере.</p>
+  <div class="card textsteps-card">
+    <ol class="textsteps">
+      <li><b>Открой страницу регистрации</b> Сайт <a href="https://accounts.google.com/signup" target="_blank" rel="noopener">accounts.google.com</a>.<span class="route">«Создать аккаунт» → «Для личного использования»</span></li>
+      <li><b>Имя, дата рождения и пол</b> Имя можно указать любое. Возраст — старше 18 лет.</li>
+      <li><b>Номер или резервная почта</b> Попробуй российский номер. Если Google пишет «Этот номер нельзя использовать для подтверждения», укажи резервную почту: код придёт туда, проверь «Спам». Можно нажать и «Нет адреса электронной почты или номера телефона?» под формой.</li>
+      <li><b>Адрес и пароль</b> Придумай адрес @gmail.com или выбери из предложенных, потом пароль. Сразу запиши их.</li>
+      <li><b>Если появился QR-код</b> Отсканируй его камерой телефона и нажми «Отправить SMS». Ничего не меняй в сообщении и отправь: это может стоить от нескольких рублей до нескольких десятков. Иногда вместо этого появляется кнопка «Подтвердить», тогда SMS не нужна.</li>
+      <li><b>Подтверди данные</b> Проверь всё, прими условия, и откроется новый ящик Gmail.</li>
+      <li><b>Защити аккаунт</b> Если резервную почту не указывали, добавь её на <a href="https://myaccount.google.com/security" target="_blank" rel="noopener">myaccount.google.com/security</a> и там же включи двухэтапную защиту.</li>
+    </ol>
+    <p class="small" style="margin-top:12px">Номера из сервисов аренды Google обычно не принимает. Если ничего не вышло, вернись к способу через приложение или заведи почту Outlook.</p>
+  </div>
+
+  <h3 class="subhead">Запасной вариант: почта Outlook</h3>
+  <p class="sub">Outlook — бесплатная почта от Microsoft с адресом @outlook.com, как Gmail, только от другой компании. ChatGPT и Claude её принимают. Создаётся за пару минут, лучше с включённым VPN.</p>
+  <div class="card textsteps-card">
+    <ol class="textsteps">
+      <li><b>Открой сайт Outlook</b> Перейди на <a href="https://outlook.live.com/" target="_blank" rel="noopener">outlook.com</a> и нажми «Создать бесплатную учётную запись».</li>
+      <li><b>Выбери имя пользователя</b> Например, ваше-имя@outlook.com. Если оно занято, Microsoft предложит другое.</li>
+      <li><b>Придумай надёжный пароль</b> Не короче восьми знаков: большие и маленькие буквы, цифры и символы. Сразу запиши его.</li>
+      <li><b>Укажи данные</b> Страну, дату рождения и имя.</li>
+      <li><b>Подтверди, что ты не робот</b> Microsoft попросит пройти проверку, а потом предложит создать ключ доступа для дополнительной защиты, это по желанию. Номер телефона Outlook обычно не спрашивает. Если всё же попросит, российский номер чаще всего не подойдёт: SMS на +7 не доходят или появляется «код страны не поддерживается». Тогда смени сервер VPN и начни заново или укажи номер знакомого за границей.</li>
+    </ol>
+    <p class="small" style="margin-top:12px">Готово: откроются «Входящие», и почту можно использовать для регистрации в нейросетях.</p>
+  </div>
+  <div class="callout" style="margin-top:18px">
+    <div class="ic">✅</div>
+    <div><h3>Сразу после регистрации почты</h3><p>Добавь резервную почту и включи двухэтапную защиту. Так ящик не уведут, даже если пароль утечёт.</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="signup">
+  <span class="sec-tag">04 — Регистрация в нейросетях</span>
+  <h2>Заводим аккаунты</h2>
+  <p class="sub"><strong style="color:var(--ink)">Везде сначала включаем VPN.</strong> Удобнее всего входить через Google новой почтой из предыдущего шага.</p>
+
+  <h3 class="subhead">ChatGPT</h3>
+  <div class="minis">
+    <div class="mini"><div class="top"><div class="n">1</div><h3>Открой chatgpt.com</h3></div><p>Официальный сайт: <a href="https://chatgpt.com/" target="_blank" rel="noopener">chatgpt.com</a>. Нажми «Зарегистрироваться» или «Sign up».</p></div>
+    <div class="mini"><div class="top"><div class="n">2</div><h3>Войди через Google</h3></div><p>«Продолжить с Google» и новая почта. Яндекс и Mail.ru не подходят.</p></div>
+    <div class="mini"><div class="top"><div class="n">3</div><h3>Имя и дата рождения</h3></div><p>Если просят номер, российский не примут: смени сервер VPN или используй номер знакомого за границей.</p><div class="tools-line">«Signup is currently unavailable» — смени сервер и очисти куки</div></div>
+  </div>
+
+  <h3 class="subhead">Gemini и Claude</h3>
+  <div class="minis">
+    <div class="mini"><span class="tag">Gemini</span><div class="top"><div class="n">1</div><h3>Открой gemini.google.com</h3></div><p>Официальный сайт: <a href="https://gemini.google.com/" target="_blank" rel="noopener">gemini.google.com</a>. Войди аккаунтом Google. Отдельной регистрации не нужно, и всё готово.</p></div>
+    <div class="mini"><span class="tag">Claude</span><div class="top"><div class="n">1</div><h3>Открой claude.ai</h3></div><p>Официальный сайт: <a href="https://claude.ai/" target="_blank" rel="noopener">claude.ai</a>. «Продолжить с Google» или вход по почте.</p></div>
+    <div class="mini"><span class="tag">Claude</span><div class="top"><div class="n">2</div><h3>Подтверди номер</h3></div><p>Claude просит номер, российский не подходит. Выручит номер друга за границей или бот, который зарегистрирует аккаунт за тебя и сразу оплатит подписку. Подробно — в <a href="#regbot">способе 1</a>.</p><div class="tools-line">Регистрация через бота: <a href="https://t.me/claude_reg_bot" target="_blank" rel="noopener">@claude_reg_bot</a></div></div>
+  </div>
+
+  <h3 class="subhead" id="apps">Приложения на телефон, если App Store их не находит</h3>
+  <p class="sub">В российском App Store приложений ChatGPT, Gemini и Claude нет. Чтобы скачать их на айфон, нужно сменить регион App Store.</p>
+  <div class="minis vpn">
+    <div class="mini"><div class="top"><div class="n">1</div><h3>Включи VPN</h3></div><p>Сервер в той стране, на которую меняешь регион. Проще всего США.</p><a class="shot img sm" href="img/1.6.jpg" target="_blank" rel="noopener" title="Открыть скрин 4.7 целиком"><img src="img/1.6.jpg" alt="VPN подключён" loading="lazy"><span class="cap">4.7</span></a></div>
+    <div class="mini"><div class="top"><div class="n">2</div><h3>Открой настройки аккаунта</h3></div><p>App Store → нажми на аватарку → на своё имя. Если не хочешь трогать свой Apple ID, заведи отдельный и меняй регион в нём.</p><div class="tools-line">Перед сменой баланс Apple ID должен быть нулевым, а подписки отменены</div><a class="shot img" href="img/10.3.jpg" target="_blank" rel="noopener" title="Открыть скрин 4.8 целиком"><img src="img/10.3.jpg" alt="Аккаунт Apple в App Store" loading="lazy"><span class="cap">4.8</span></a></div>
+    <div class="mini"><div class="top"><div class="n">3</div><h3>Смени страну на США</h3></div><p>Нажми «Страна/регион» и выбери «Соединённые Штаты». В «Способах оплаты» должно стоять «Нет».</p><a class="shot img land" href="img/4.9.jpg" target="_blank" rel="noopener" title="Открыть скрин 4.9 целиком"><img src="img/4.9.jpg" alt="Настройки учётной записи: страна и способ оплаты" loading="lazy"><span class="cap">4.9</span></a></div>
+    <div class="mini"><div class="top"><div class="n">4</div><h3>Открой адрес для счёта</h3></div><p>Нажми «Адрес для выставления счёта». Apple просит адрес в той же стране, что указана в регионе.</p><a class="shot img" href="img/4.10.jpg" target="_blank" rel="noopener" title="Открыть скрин 4.10 целиком"><img src="img/4.10.jpg" alt="Управление способами оплаты и адрес" loading="lazy"><span class="cap">4.10</span></a></div>
+    <div class="mini"><div class="top"><div class="n">5</div><h3>Заполни адрес в США</h3></div><p>Имя, фамилия, улица, город, штат, индекс и телефон. Пример — на скрине.</p><a class="shot img" href="img/4.11.jpg" target="_blank" rel="noopener" title="Открыть скрин 4.11 целиком"><img src="img/4.11.jpg" alt="Пример адреса в США" loading="lazy"><span class="cap">4.11</span></a></div>
+    <div class="mini"><div class="top"><div class="n">6</div><h3>Скачай приложения</h3></div><p>Теперь в App Store находятся ChatGPT, Gemini и Claude. Скачай нужные и войди в свои аккаунты.</p></div>
+  </div>
+  <div class="callout" style="margin-top:18px"><div class="ic">🔄</div><div><h3>После скачивания</h3><p>Приложения останутся на телефоне, даже если вернуть регион обратно. <strong style="color:var(--ink)">Но обновлять их получится только из Apple ID с регионом США.</strong></p></div></div>
+
+  <h3 class="subhead">Приложения на Android</h3>
+  <p class="sub">В российском Google Play этих приложений тоже нет. Порядок похожий: VPN, смена страны в магазине и установка.</p>
+  <div class="card textsteps-card">
+    <ol class="textsteps">
+      <li><b>Включи VPN</b> Выбери страну, где доступен Google Play, например США, и проверь, что VPN подключился.</li>
+      <li><b>Смени страну в Google Play</b> Открой настройки магазина и выбери США.<span class="route">Google Play → аватар в правом верхнем углу → «Настройки» → «Основные» → «Настройки аккаунта и устройства» → «Страна и профили» → США</span></li>
+      <li><b>Если магазин попросит данные</b> При смене страны Google Play может попросить дополнительные данные или способ оплаты. Следуй подсказкам: это обычный этап смены региона.</li>
+      <li><b>Если новая страна не появилась</b> Очисти кэш Google Play и снова открой магазин. Не помогло — перезагрузи телефон или немного подожди.<span class="route">Настройки телефона → «Приложения» → «Google Play» → «Хранилище» → «Очистить кэш»</span></li>
+      <li><b>Найди приложение и проверь разработчика</b> Похожих приложений-подделок много, смотри, кто разработчик.<span class="route">ChatGPT — OpenAI ✓ · Claude — Anthropic · Gemini — Google</span></li>
+      <li><b>Установи и войди в свой аккаунт</b> Лучше использовать один и тот же аккаунт на телефоне и компьютере, чтобы история чатов не разъехалась.</li>
+    </ol>
+    <p class="small" style="margin-top:12px">Менять страну в Google Play можно не чаще раза в 90 дней. Если не получилось, пользуйся нейросетями в браузере с VPN: там работает всё то же самое.</p>
+  </div>
+</section>
+
+<section class="wrap" id="regbot">
+  <span class="sec-tag">05 — Способы оплаты</span>
+  <div class="callout" style="margin-bottom:22px"><div class="ic">💳</div><div><h3>Выбираем, как платить</h3><p>Дальше 9 способов оплаты, от простого к сложному. Первый подходит, даже если аккаунта ещё нет. Не нужно проходить все: выбери один по таблице в начале гайда.</p></div></div>
+  <h2>Способ 1. Бот AI GARANT REG: регистрация и оплата под ключ</h2>
+  <div class="reqs"><span class="req ok">✅ Аккаунт не нужен: почту и аккаунт создадут за тебя</span><span class="req ok">📱 С любого телефона или компьютера</span><span class="req ok">🛡 Гарантия замены аккаунта</span><span class="req warn">⏱ До 24 часов: с тобой общается живой менеджер</span></div>
+  <p class="sub">Подходит, если не хочется разбираться с почтой, номером и картами. Бот регистрирует аккаунт в Claude, ChatGPT, Gemini или Grok и сам оплачивает подписку, а ты платишь ему рублями.</p>
+  <div class="grid g2" style="margin-bottom:18px">
+    <div class="card">
+      <span class="lvl">Claude · ChatGPT · Gemini · Grok</span>
+      <h3>Что ты получаешь</h3>
+      <div class="cost"><b>Claude Pro 2 690 ₽</b><span>ChatGPT Plus — 2 590 ₽ · Claude Max 5x — 14 990 ₽ · Max 20x — 28 990 ₽ · Gemini и Grok — цены в боте</span></div>
+      <div class="pc">
+        <ul class="plus"><b>Плюсы</b><li>Не нужен иностранный номер для Claude</li><li>Не нужно создавать Gmail</li><li>Оплата рублями с российской карты</li><li>Поддержка отвечает людьми</li></ul>
+        <ul class="minus"><b>Учти</b><li>Пользоваться нейросетью всё равно через VPN</li><li>Подключение занимает до 24 часов</li><li>Поддержка: <a href="https://t.me/claude_reg_support" target="_blank" rel="noopener">@claude_reg_support</a></li></ul>
+      </div>
+    </div>
+    <div class="callout" style="margin:0">
+      <div class="ic">🛡️</div>
+      <div><h3>Гарантия на аккаунт</h3><p>По условиям сервиса, если аккаунт заблокируют, его заменят бесплатно. Оплаты сервис проводит через разрешённые способы, чтобы снизить риск блокировки.</p><a class="btn" style="margin-top:14px;padding:12px 22px;font-size:14.5px" href="https://t.me/claude_reg_bot" target="_blank" rel="noopener">Открыть бота →</a></div>
+    </div>
+  </div>
+  <div class="minis vpn">
+    <div class="mini"><div class="top"><div class="n">1</div><h3>Открой бота</h3></div><p>Перейди по ссылке и нажми «Старт». Бот подключает подписку на твою почту без входа в аккаунт или выдаёт почту для нового аккаунта.</p><div class="tools-line">Бот: <a href="https://t.me/claude_reg_bot" target="_blank" rel="noopener">@claude_reg_bot</a></div><a class="shot img" href="img/5.1.jpg" target="_blank" rel="noopener" title="Открыть скрин 5.1 целиком"><img src="img/5.1.jpg" alt="Приветствие бота AI GARANT REG" loading="lazy"><span class="cap">5.1</span></a></div>
+    <div class="mini"><div class="top"><div class="n">2</div><h3>Выбери нейросеть</h3></div><p>В меню «Выберите категорию» нажми нужную: Claude, ChatGPT, SuperGrok, Gemini или «Другие сервисы».</p><a class="shot img" href="img/5.2.jpg" target="_blank" rel="noopener" title="Открыть скрин 5.2 целиком"><img src="img/5.2.jpg" alt="Выбор категории" loading="lazy"><span class="cap">5.2</span></a></div>
+    <div class="mini"><div class="top"><div class="n">3</div><h3>Выбери тариф</h3></div><p>Например, <strong>Claude Pro — 2 690 ₽</strong> или <strong>ChatGPT Plus — 2 590 ₽</strong>. Для Claude есть и Max 5x, и Max 20x.</p><a class="shot img" href="img/5.3.jpg" target="_blank" rel="noopener" title="Открыть скрин 5.3 целиком"><img src="img/5.3.jpg" alt="Тарифы Claude" loading="lazy"><span class="cap">5.3</span></a></div>
+    <div class="mini"><div class="top"><div class="n">4</div><h3>Прочитай, как проходит подключение</h3></div><p>После оплаты бот подтвердит платёж, а дальше всё делает менеджер. Обычно подключение занимает до 24 часов.</p><a class="shot img" href="img/5.4.jpg" target="_blank" rel="noopener" title="Открыть скрин 5.4 целиком"><img src="img/5.4.jpg" alt="Описание товара" loading="lazy"><span class="cap">5.4</span></a></div>
+    <div class="mini"><div class="top"><div class="n">5</div><h3>Нажми «Выбрать этот товар»</h3></div><p>Если нет аккаунта Claude или подходящей почты, ничего страшного: скажешь об этом менеджеру, всё подготовят за тебя.</p><a class="shot img" href="img/5.5.jpg" target="_blank" rel="noopener" title="Открыть скрин 5.5 целиком"><img src="img/5.5.jpg" alt="Кнопка «Выбрать этот товар»" loading="lazy"><span class="cap">5.5</span></a></div>
+    <div class="mini"><div class="top"><div class="n">6</div><h3>Нажми «Перейти к оплате»</h3></div><p>Счёт действует 30 минут, оплати до указанного времени.</p><a class="shot img" href="img/5.6.jpg" target="_blank" rel="noopener" title="Открыть скрин 5.6 целиком"><img src="img/5.6.jpg" alt="Счёт и кнопка «Перейти к оплате»" loading="lazy"><span class="cap">5.6</span></a></div>
+    <div class="mini"><div class="top"><div class="n">7</div><h3>Открой ссылку на оплату</h3></div><p>Telegram спросит, открыть ли ссылку. Нажми «Открыть».</p><a class="shot img" href="img/5.7.jpg" target="_blank" rel="noopener" title="Открыть скрин 5.7 целиком"><img src="img/5.7.jpg" alt="Открыть ссылку на оплату" loading="lazy"><span class="cap">5.7</span></a></div>
+    <div class="mini"><div class="top"><div class="n">8</div><h3>Оплати по СБП или картой</h3></div><p>Выбери способ и нажми «Оплатить». Проверь, что платёж идёт в пользу t.me/claude_reg_bot.</p><a class="shot img" href="img/5.8.jpg" target="_blank" rel="noopener" title="Открыть скрин 5.8 целиком"><img src="img/5.8.jpg" alt="Страница оплаты: СБП или карта" loading="lazy"><span class="cap">5.8</span></a></div>
+    <div class="mini"><div class="top"><div class="n">9</div><h3>Проверь списание в банке</h3></div><p>Получатель в банке может называться по-другому, это нормально. Главное — сумма совпадает.</p><a class="shot img land" href="img/5.9.jpg" target="_blank" rel="noopener" title="Открыть скрин 5.9 целиком"><img src="img/5.9.jpg" alt="Списание в банковском приложении" loading="lazy"><span class="cap">5.9</span></a></div>
+    <div class="mini"><div class="top"><div class="n">10</div><h3>Перешли заказ менеджеру</h3></div><p>Бот пришлёт «Заказ успешно оформлен». Напиши менеджеру <a href="https://t.me/claude_reg_support" target="_blank" rel="noopener">@claude_reg_support</a> и перешли ему это сообщение.</p><a class="shot img" href="img/5.10.jpg" target="_blank" rel="noopener" title="Открыть скрин 5.10 целиком"><img src="img/5.10.jpg" alt="Заказ успешно оформлен" loading="lazy"><span class="cap">5.10</span></a></div>
+    <div class="mini"><div class="top"><div class="n">11</div><h3>Напиши, что нужно</h3></div><p>Например: «Оплачено. Нужен новый аккаунт, почты нет». Дождись подтверждения заказа и ответь на вопросы поддержки.</p><a class="shot img" href="img/5.11.jpg" target="_blank" rel="noopener" title="Открыть скрин 5.11 целиком"><img src="img/5.11.jpg" alt="Образец переписки с поддержкой" loading="lazy"><span class="cap">5.11</span></a></div>
+    <div class="mini"><div class="top"><div class="n">12</div><h3>Получи данные и войди</h3></div><p>Если брали новый аккаунт, менеджер пришлёт почту и пароль. Войди в почту, потом на claude.ai введи эту почту: письмо для входа придёт туда.</p><a class="shot img" href="img/5.12.jpg" target="_blank" rel="noopener" title="Открыть скрин 5.12 целиком"><img src="img/5.12.jpg" alt="Данные для входа от менеджера" loading="lazy"><span class="cap">5.12</span></a></div>
+  </div>
+  <div class="callout warn" style="margin-top:18px"><div class="ic">⏳</div><div><h3>Новый аккаунт — не спеши с подпиской</h3><p>Поддержка советует 2–3 дня пользоваться новым аккаунтом на бесплатном тарифе и только потом подключать подписку. Так меньше шанс блокировки.</p></div></div>
+</section>
+
+<section class="wrap" id="ozon">
+  <span class="sec-tag">06 — Способы оплаты</span>
+  <h2>Способ 2. Озон Банк через приложение</h2>
+  <div class="reqs"><span class="req warn">👤 Нужен готовый аккаунт ChatGPT: регион США или новый</span><span class="req ok">📱 С любого телефона</span><span class="req warn">🔁 Без автопродления</span></div>
+  <p class="sub">Через Озон Банк можно купить ваучер на ChatGPT (Go, Plus, Pro) и другие зарубежные сервисы. Plus ≈ 2 760 ₽. Нужен уже созданный аккаунт ChatGPT. Пароль не нужен, но для активации понадобится токен твоего аккаунта, об этом ниже.</p>
+  <div class="minis vpn">
+    <div class="mini"><div class="top"><div class="n">1</div><h3>Открой приложение Озон</h3></div><p>Обычное приложение маркетплейса.</p><a class="shot img land" href="img/6.1.jpg" target="_blank" rel="noopener" title="Открыть скрин 6.1 целиком"><img src="img/6.1.jpg" alt="Значок приложения OZON" loading="lazy"><span class="cap">6.1</span></a></div>
+    <div class="mini"><div class="top"><div class="n">2</div><h3>Нажми на значок ₽</h3></div><p>Он в нижнем меню, по центру.</p><a class="shot img land" href="img/6.2.jpg" target="_blank" rel="noopener" title="Открыть скрин 6.2 целиком"><img src="img/6.2.jpg" alt="Значок рубля в нижнем меню Озона" loading="lazy"><span class="cap">6.2</span></a></div>
+    <div class="mini"><div class="top"><div class="n">3</div><h3>Войди в Озон Банк</h3></div><p>Нажми «Войти в Озон Банк». Если карты ещё нет, приложение предложит её оформить.</p><a class="shot img" href="img/6.3.jpg" target="_blank" rel="noopener" title="Открыть скрин 6.3 целиком"><img src="img/6.3.jpg" alt="Кнопка «Войти в Озон Банк»" loading="lazy"><span class="cap">6.3</span></a></div>
+    <div class="mini"><div class="top"><div class="n">4</div><h3>Нажми на лупу</h3></div><p>Поиск в правом верхнем углу.</p><a class="shot img land" href="img/6.4.jpg" target="_blank" rel="noopener" title="Открыть скрин 6.4 целиком"><img src="img/6.4.jpg" alt="Поиск в Озон Банке" loading="lazy"><span class="cap">6.4</span></a></div>
+    <div class="mini"><div class="top"><div class="n">5</div><h3>Найди «Зарубежные сервисы»</h3></div><p>Напиши в поиске «Зарубеж» и выбери «Зарубежные сервисы» в разделе «Платежи».</p><a class="shot img land" href="img/6.5.jpg" target="_blank" rel="noopener" title="Открыть скрин 6.5 целиком"><img src="img/6.5.jpg" alt="Поиск: Зарубежные сервисы" loading="lazy"><span class="cap">6.5</span></a></div>
+    <div class="mini"><div class="top"><div class="n">6</div><h3>Выбери ChatGPT</h3></div><p>Он в списке популярных.</p><a class="shot img land" href="img/6.6.jpg" target="_blank" rel="noopener" title="Открыть скрин 6.6 целиком"><img src="img/6.6.jpg" alt="ChatGPT в списке зарубежных сервисов" loading="lazy"><span class="cap">6.6</span></a></div>
+    <div class="mini"><div class="top"><div class="n">7</div><h3>Прочитай условие</h3></div><p>Подписку можно активировать только на аккаунте с регионом США (валюта USD) или на новом аккаунте. </p><a class="shot img" href="img/6.7.jpg" target="_blank" rel="noopener" title="Открыть скрин 6.7 целиком"><img src="img/6.7.jpg" alt="Условие активации и регион США" loading="lazy"><span class="cap">6.7</span></a></div>
+    <div class="mini"><div class="top"><div class="n">8</div><h3>Выбери тариф, укажи почту и оплати</h3></div><p>Например, <strong>Plus — 1 Month</strong>. Введи свою почту: на неё придёт код. Проверь сумму в строке «К оплате» и нажми «Оплатить» через СБП.</p><a class="shot img" href="img/6.8.jpg" target="_blank" rel="noopener" title="Открыть скрин 6.8 целиком"><img src="img/6.8.jpg" alt="Тариф, почта и кнопка оплаты" loading="lazy"><span class="cap">6.8</span></a></div>
+    <div class="mini"><div class="top"><div class="n">9</div><h3>Открой письмо с кодом</h3></div><p>Придёт письмо от Pay Digital «Спасибо за оплату». Нужна ссылка в строке <strong>«Код ваучера»</strong>. Если письма нет, проверь «Спам».</p><a class="shot img" href="img/6.9.jpg" target="_blank" rel="noopener" title="Открыть скрин 6.9 целиком"><img src="img/6.9.jpg" alt="Письмо Pay Digital с кодом ваучера" loading="lazy"><span class="cap">6.9</span></a></div>
+    <div class="mini"><div class="top"><div class="n">10</div><h3>Включи VPN</h3></div><p>Перед активацией подключи VPN. На скрине я подключаюсь к США.</p><a class="shot img" href="img/6.10.jpg" target="_blank" rel="noopener" title="Открыть скрин 6.10 целиком"><img src="img/6.10.jpg" alt="VPN подключён к США" loading="lazy"><span class="cap">6.10</span></a></div>
+    <div class="mini"><div class="top"><div class="n">11</div><h3>Войди в ChatGPT и получи токен</h3></div><p>Перейди по ссылке из письма: появится «Код проверен». Нажми <strong>«Войти в аккаунт ChatGPT»</strong> и войди в тот аккаунт, на который нужна подписка. Потом нажми <strong>«Получить токен»</strong>: откроется страница с текстом.</p><a class="shot img" href="img/6.11.jpg" target="_blank" rel="noopener" title="Открыть скрин 6.11 целиком"><img src="img/6.11.jpg" alt="Код проверен, вход в ChatGPT и получение токена" loading="lazy"><span class="cap">6.11</span></a></div>
+    <div class="mini"><div class="top"><div class="n">12</div><h3>Вставь токен целиком</h3></div><p>Выдели весь текст на странице токена, скопируй и вставь в поле «Session JSON». Ничего не вырезай. Нажми «Проверить аккаунт». Когда появится «Аккаунт подтверждён», жми «Далее».</p><a class="shot img" href="img/6.12.jpg" target="_blank" rel="noopener" title="Открыть скрин 6.12 целиком"><img src="img/6.12.jpg" alt="Поле Session JSON и проверка аккаунта" loading="lazy"><span class="cap">6.12</span></a></div>
+    <div class="mini"><div class="top"><div class="n">13</div><h3>Подтверди пополнение</h3></div><p>Проверь, что указана твоя почта ChatGPT: после активации код вернуть нельзя. Поставь галочку «Я подтверждаю» и нажми «Подтвердить пополнение». «Пополнить принудительно» нужно, если подписка уже есть: тогда новый месяц начнётся сразу, остаток старого не добавится.</p><a class="shot img" href="img/6.13.jpg" target="_blank" rel="noopener" title="Открыть скрин 6.13 целиком"><img src="img/6.13.jpg" alt="Проверка данных и подтверждение" loading="lazy"><span class="cap">6.13</span></a></div>
+    <div class="mini"><div class="top"><div class="n">14</div><h3>Готово</h3></div><p>Появится «Пополнение выполнено». Если подписка не видна в ChatGPT, обнови страницу. Не помогло — выйди из аккаунта и войди снова или открой ChatGPT в режиме инкогнито.</p><a class="shot img" href="img/6.14.jpg" target="_blank" rel="noopener" title="Открыть скрин 6.14 целиком"><img src="img/6.14.jpg" alt="Пополнение выполнено" loading="lazy"><span class="cap">6.14</span></a></div>
+  </div>
+  <div class="callout warn" style="margin-top:18px"><div class="ic">🔐</div><div><h3>Токен — это как пароль</h3><p>Текст со страницы токена даёт доступ к аккаунту. Вставляй его только на странице активации по ссылке из письма Pay Digital и никому не пересылай.</p></div></div>
+  <div class="callout warn" style="margin-top:18px"><div class="ic">🔁</div><div><h3>Автопродления нет</h3><p>Через месяц покупаешь новый код. Поставь напоминание за пару дней до окончания.</p></div></div>
+</section>
+
+<section class="wrap" id="mts">
+  <span class="sec-tag">07 — Способы оплаты</span>
+  <h2>Способ 3. Ваучер в «МТС Оплате»</h2>
+  <div class="reqs"><span class="req warn">👤 Нужен готовый аккаунт</span><span class="req ok">Подходит всем, не только абонентам МТС</span><span class="req warn">🔁 Без автопродления</span></div>
+  <p class="sub">Подходит всем, не только абонентам МТС: платишь по СБП картой любого российского банка. В «МТС Оплате» есть ChatGPT, Claude и Gemini. Механика как у Озона: платишь рублями, а на почту приходит ваучер или данные разовой зарубежной карты с инструкцией по активации.</p>
+  <div class="tablecard" style="margin-bottom:18px">
+    <table>
+      <thead><tr><th>ChatGPT в «МТС Оплате»</th><th>Цена</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Go</strong>, 1 месяц</td><td class="money">≈ 1 120 ₽</td></tr>
+        <tr><td><strong>Plus</strong>, 1 месяц, ваучер</td><td class="money">≈ 2 450 ₽ с комиссией</td></tr>
+        <tr><td><strong>Plus</strong>, 1 месяц, разовая карта</td><td class="money">≈ 2 505 ₽</td></tr>
+        <tr><td><strong>Pro 5x / Pro 20x</strong></td><td class="money">≈ 11 470 / 22 470 ₽</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small" style="margin:-6px 0 18px">Цены на август 2026. Для Claude и Gemini цена видна на странице сервиса после выбора тарифа. Иногда там стоит «Раскупили» — значит, нужного тарифа сейчас нет, загляни позже или выбери другой способ.</p>
+  <h3 class="subhead">Покупка</h3>
+  <div class="card textsteps-card">
+    <ol class="textsteps">
+      <li><b>Открой страницу сервиса</b> Сайт <a href="https://payment.mts.ru" target="_blank" rel="noopener">payment.mts.ru</a> или приложение «Мой МТС» → зарубежные сервисы → нужная нейросеть. Прямые страницы: <a href="https://payment.mts.ru/tools/chatgpt" target="_blank" rel="noopener">ChatGPT</a>, <a href="https://payment.mts.ru/tools/claude" target="_blank" rel="noopener">Claude</a>, <a href="https://payment.mts.ru/tools/gemini" target="_blank" rel="noopener">Gemini</a>.</li>
+      <li><b>Выбери «Покупаю себе»</b> И регион подключения к интернету — США.</li>
+      <li><b>Укажи почту</b> На неё придёт ваучер и инструкция. Лучше та же почта, на которую зарегистрирована нейросеть, например Gmail.</li>
+      <li><b>Выбери тариф и срок</b> Для ChatGPT можно выбрать ваучер или разовую карту, чем они отличаются — ниже.</li>
+      <li><b>Оплати по СБП</b> Нажми «Оплатить» и подтверди платёж в приложении своего банка. Промокод — по желанию.<span class="route">Заказ обрабатывается около 15 минут, в редких случаях до 3 часов</span></li>
+    </ol>
+  </div>
+  <h3 class="subhead">Активация</h3>
+  <div class="card textsteps-card">
+    <ol class="textsteps">
+      <li><b>Включи VPN США</b> Активировать ваучер нужно с подключением из США, так требует сам сервис.</li>
+      <li><b>Открой письмо от МТС</b> В нём ваучер или данные карты и пошаговая инструкция для твоей нейросети. Делай строго по ней.</li>
+      <li><b>Ваучер: проверь аккаунт заранее</b> Он сработает только на аккаунте без активной подписки и без выставленного, но неоплаченного счёта. Если подписка ещё идёт, дождись её окончания.</li>
+      <li><b>Разовая карта: оплати сразу</b> Это зарубежная карта в долларах на одну оплату, действует 3 недели и не возвращается. Введи её данные в форме оплаты нейросети. За каждую неудачную попытку с баланса карты списывается комиссия, поэтому вводи данные внимательно и не жми «Оплатить» много раз подряд.</li>
+      <li><b>Проверь тариф</b> Зайди в настройки аккаунта и убедись, что подписка подключилась.</li>
+    </ol>
+    <p class="small" style="margin-top:12px">Если что-то пошло не так, пиши в поддержку МТС Оплаты в Telegram: <a href="https://t.me/MTC_Oplata_bot" target="_blank" rel="noopener">@MTC_Oplata_bot</a>. Номер заказа есть в письме.</p>
+  </div>
+</section>
+
+<section class="wrap" id="tbank">
+  <span class="sec-tag">08 — Способы оплаты</span>
+  <h2>Способ 4. Подарочная карта Apple через Т-Банк</h2>
+  <div class="reqs"><span class="req warn">🍏 Только для iPhone</span><span class="req warn">👤 Нужен Apple ID США</span><span class="req warn">💳 Нужна карта Т-Банка</span><span class="req ok">🔁 Подписка продлевается сама с баланса Apple</span></div>
+  <p class="sub">Тот же принцип, что в <a href="#apple">способе 6</a>: пополняешь баланс Apple ID подарочной картой США и платишь за подписку прямо в App Store. Только карту покупаешь не на маркетплейсе, а в приложении Т-Банка, без поиска продавца. Перед покупкой проверь, что регион Apple ID — США (<a href="#apple">способ 6, шаги 1–4</a>).</p>
+  <h3 class="subhead">1. Купи карту в Т-Банке</h3>
+  <div class="minis vpn">
+    <div class="mini"><div class="top"><div class="n">1</div><h3>Открой приложение Т-Банка</h3></div><p>Обычное приложение банка.</p><a class="shot img land" href="img/8.1.jpg" target="_blank" rel="noopener" title="Открыть скрин 8.1 целиком"><img src="img/8.1.jpg" alt="Значок приложения Т-Банка" loading="lazy"><span class="cap">8.1</span></a></div>
+    <div class="mini"><div class="top"><div class="n">2</div><h3>Нажми на поиск</h3></div><p>Строка «Поиск» на главном экране.</p><a class="shot img land" href="img/8.2.jpg" target="_blank" rel="noopener" title="Открыть скрин 8.2 целиком"><img src="img/8.2.jpg" alt="Поиск в Т-Банке" loading="lazy"><span class="cap">8.2</span></a></div>
+    <div class="mini"><div class="top"><div class="n">3</div><h3>Найди «Apple: карта оплаты США»</h3></div><p>Начни вводить название и выбери его в разделе «Платежи».</p><a class="shot img land" href="img/8.3.jpg" target="_blank" rel="noopener" title="Открыть скрин 8.3 целиком"><img src="img/8.3.jpg" alt="Apple: карта оплаты США в поиске" loading="lazy"><span class="cap">8.3</span></a></div>
+    <div class="mini"><div class="top"><div class="n">4</div><h3>Введи почту и открой выбор суммы</h3></div><p>Укажи свою почту: на неё придёт код. Потом нажми на стрелку в поле «Выберите сумму пополнения».</p><a class="shot img land" href="img/8.4.jpg" target="_blank" rel="noopener" title="Открыть скрин 8.4 целиком"><img src="img/8.4.jpg" alt="Почта и выбор суммы" loading="lazy"><span class="cap">8.4</span></a></div>
+    <div class="mini"><div class="top"><div class="n">5</div><h3>Выбери сумму</h3></div><p>Есть 2, 5, 10, 20 и 25 USD. В первый раз возьми 2 USD, чтобы проверить, что всё работает.</p><a class="shot img" href="img/8.5.jpg" target="_blank" rel="noopener" title="Открыть скрин 8.5 целиком"><img src="img/8.5.jpg" alt="Список сумм" loading="lazy"><span class="cap">8.5</span></a></div>
+    <div class="mini"><div class="top"><div class="n">6</div><h3>Нажми «Продолжить» и оплати</h3></div><p>Проверь сумму и подтверди оплату в приложении.</p><a class="shot img land" href="img/8.6.jpg" target="_blank" rel="noopener" title="Открыть скрин 8.6 целиком"><img src="img/8.6.jpg" alt="Кнопка «Продолжить»" loading="lazy"><span class="cap">8.6</span></a></div>
+    <div class="mini"><div class="top"><div class="n">7</div><h3>Скопируй код из письма</h3></div><p>Придёт письмо «Подарочная карта Apple» с кодом для пополнения Apple ID. Если письма нет, проверь «Спам».</p><a class="shot img land" href="img/8.7.jpg" target="_blank" rel="noopener" title="Открыть скрин 8.7 целиком"><img src="img/8.7.jpg" alt="Письмо с кодом" loading="lazy"><span class="cap">8.7</span></a></div>
+  </div>
+  <h3 class="subhead">2. Активируй карту в App Store</h3>
+  <div class="minis vpn">
+    <div class="mini"><div class="top"><div class="n">8</div><h3>Открой App Store → аватарка</h3></div><p>Правый верхний угол.</p><a class="shot img" href="img/10.21.jpg" target="_blank" rel="noopener" title="Открыть скрин 8.8 целиком"><img src="img/10.21.jpg" alt="Открой App Store → аватарка" loading="lazy"><span class="cap">8.8</span></a></div>
+    <div class="mini"><div class="top"><div class="n">9</div><h3>Нажми «Активировать код»</h3></div><p>Кнопка внизу экрана аккаунта.</p><a class="shot img" href="img/10.22.jpg" target="_blank" rel="noopener" title="Открыть скрин 8.9 целиком"><img src="img/10.22.jpg" alt="Нажми «Активировать код»" loading="lazy"><span class="cap">8.9</span></a></div>
+    <div class="mini"><div class="top"><div class="n">10</div><h3>Выбери «Ввести код вручную»</h3></div><p>Или отсканируй код камерой.</p><a class="shot img" href="img/10.23.jpg" target="_blank" rel="noopener" title="Открыть скрин 8.10 целиком"><img src="img/10.23.jpg" alt="Выбери «Ввести код вручную»" loading="lazy"><span class="cap">8.10</span></a></div>
+    <div class="mini"><div class="top"><div class="n">11</div><h3>Вставь код и нажми «Активировать»</h3></div><p>Код из письма Т-Банка.</p><a class="shot img land" href="img/10.24.jpg" target="_blank" rel="noopener" title="Открыть скрин 8.11 целиком"><img src="img/10.24.jpg" alt="Вставь код и нажми «Активировать»" loading="lazy"><span class="cap">8.11</span></a></div>
+    <div class="mini"><div class="top"><div class="n">12</div><h3>Если «Не удалось подключиться»</h3></div><p>Нажми «Повторить». Активация иногда срабатывает не с первого раза.</p><a class="shot img land" href="img/10.25.jpg" target="_blank" rel="noopener" title="Открыть скрин 8.12 целиком"><img src="img/10.25.jpg" alt="Если «Не удалось подключиться»" loading="lazy"><span class="cap">8.12</span></a></div>
+    <div class="mini"><div class="top"><div class="n">13</div><h3>Проверь баланс</h3></div><p>Под именем появится «Баланс средств на счёте» в долларах.</p><a class="shot img" href="img/10.26.jpg" target="_blank" rel="noopener" title="Открыть скрин 8.13 целиком"><img src="img/10.26.jpg" alt="Проверь баланс" loading="lazy"><span class="cap">8.13</span></a></div>
+  </div>
+  <div class="callout" style="margin-top:18px"><div class="ic">📲</div><div><h3>Дальше — подписка</h3><p>Скачай ChatGPT, Claude или Gemini из App Store, войди в свой аккаунт и нажми Upgrade: оплата спишется с баланса Apple. Пополняй баланс за пару дней до продления.</p></div></div>
+</section>
+
+<section class="wrap" id="market">
+  <span class="sec-tag">09 — Способы оплаты</span>
+  <h2>Способ 5. Маркетплейсы FunPay, Plati и GGSel</h2>
+  <div class="reqs"><span class="req warn">👤 Нужен готовый аккаунт</span><span class="req warn">⚠️ Важно выбрать надёжного продавца</span></div>
+  <p class="sub">Один из самых выгодных способов: ChatGPT Plus на свой аккаунт ≈ 2 200–2 300 ₽, а иногда и дешевле. Есть все три нейросети. Деньги на площадке замораживаются и уходят продавцу только после того, как ты подтвердишь, что всё получено. Главное — понимать, что покупаешь, и выбрать надёжного продавца.</p>
+  <div class="sitelinks">
+    <a href="https://funpay.com" target="_blank" rel="noopener">🎮 FunPay <small>funpay.com</small></a>
+    <a href="https://plati.market" target="_blank" rel="noopener">🛒 Plati <small>plati.market</small></a>
+    <a href="https://ggsel.net" target="_blank" rel="noopener">🛍️ GGSel <small>ggsel.net</small></a>
+  </div>
+  <div class="callout warn" style="margin-bottom:18px">
+    <div class="ic">⚠️</div>
+    <div><h3>Продавца выбираешь ты</h3><p>Выбор продавца — твоя ответственность. Перед покупкой обязательно смотри <strong>свежие отзывы</strong> за последние дни и недели, а не только общий рейтинг. Я не несу ответственности за продавцов, площадки и их услуги — я только делюсь информацией и своим опытом.</p></div>
+  </div>
+
+  <div class="callout" style="margin-bottom:18px">
+    <div class="ic">💡</div>
+    <div><h3>Сначала создай свой аккаунт</h3><p>На площадках продают и готовые аккаунты с подпиской, но лучше зарегистрироваться самостоятельно (<a href="#signup">раздел 04</a>), ChatGPT — с почтой Gmail, а на маркетплейсе только подключить подписку. Так все чаты останутся твоими, а доступ не отберут.</p></div>
+  </div>
+
+  <h3 class="subhead">Что бывает на площадке</h3>
+  <div class="tablecard">
+    <table>
+      <thead><tr><th>Тип предложения</th><th>Как работает</th><th>Брать?</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Подписка на твой аккаунт</strong></td><td>Продавец подключает подписку к твоему готовому аккаунту</td><td><span class="dot ok">да, лучший вариант</span></td></tr>
+        <tr><td><strong>Код активации</strong></td><td>Получаешь код и вводишь его самостоятельно</td><td><span class="dot ok">да, если продавец надёжный</span></td></tr>
+        <tr><td><strong>Готовый личный аккаунт</strong></td><td>Новый аккаунт только для тебя, уже с подпиской</td><td><span class="dot mid">можно, но чаты с нуля</span></td></tr>
+        <tr><td><strong>Общий аккаунт</strong></td><td>Один аккаунт на несколько человек</td><td><span class="dot bad">нет</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="subhead">Покупка по шагам на примере FunPay</h3>
+  <div class="minis vpn">
+    <div class="mini"><div class="top"><div class="n">1</div><h3>Зарегистрируйся на FunPay</h3></div><p>Сайт <a href="https://funpay.com/" target="_blank" rel="noopener">funpay.com</a>. Аккаунт нужен, чтобы писать продавцам и следить за заказом. Так же устроены Plati и GGSel.</p></div>
+    <div class="mini"><div class="top"><div class="n">2</div><h3>Найди нейросеть</h3></div><p>В поиске на главной напиши название латиницей, как на официальном сайте: «ChatGPT», «Claude», «Gemini». С опечаткой или по-русски нужная нейросеть не найдётся.</p><a class="shot img land" href="img/9.1.png" target="_blank" rel="noopener" title="Открыть картинку целиком"><img src="img/9.1.png" alt="Поиск ChatGPT на FunPay" loading="lazy"><span class="cap">9.1</span></a></div>
+    <div class="mini"><div class="top"><div class="n">3</div><h3>Открой «Подписки», а не «Аккаунты»</h3></div><p>В «Аккаунтах» продают готовые аккаунты, а тебе нужно подключить подписку к своему. Сверху выбери тариф, например Plus.</p><a class="shot img land" href="img/9.2.png" target="_blank" rel="noopener" title="Открыть картинку целиком"><img src="img/9.2.png" alt="Раздел Подписки и тариф Plus" loading="lazy"><span class="cap">9.2</span></a></div>
+    <div class="mini"><div class="top"><div class="n">4</div><h3>Выбери способ получения</h3></div><p>В фильтре «Способ получения»: «С заходом на аккаунт» или «Без захода на аккаунт». Чем они отличаются — ниже.</p><a class="shot img land" href="img/9.3.png" target="_blank" rel="noopener" title="Открыть картинку целиком"><img src="img/9.3.png" alt="Фильтр способа получения" loading="lazy"><span class="cap">9.3</span></a></div>
+    <div class="mini"><div class="top"><div class="n">5</div><h3>Выбери продавца и напиши ему</h3></div><p>По чек-листу ниже. До оплаты спроси в чате, всё ли получится и останутся ли чаты.</p></div>
+    <div class="mini"><div class="top"><div class="n">6</div><h3>Оплати по СБП</h3></div><p>Деньги замораживаются на площадке и уходят продавцу только после того, как ты подтвердишь выполнение заказа.</p><a class="shot img land" href="img/9.4.png" target="_blank" rel="noopener" title="Открыть картинку целиком"><img src="img/9.4.png" alt="Способы оплаты: СБП" loading="lazy"><span class="cap">9.4</span></a></div>
+    <div class="mini"><div class="top"><div class="n">7</div><h3>Нет СБП и рублей?</h3></div><p>Нажми на аватарку в правом верхнем углу и проверь язык и валюту: должно стоять «По-русски» и «Рубли».</p><a class="shot img land" href="img/9.5.png" target="_blank" rel="noopener" title="Открыть картинку целиком"><img src="img/9.5.png" alt="Меню аватарки: язык и рубли" loading="lazy"><span class="cap">9.5</span></a></div>
+    <div class="mini"><div class="top"><div class="n">8</div><h3>Сделай то, что скажет продавец</h3></div><p>Без захода — пройди его инструкцию или введи код. С заходом — дай временный пароль, а после оформления смени его.</p></div>
+    <div class="mini"><div class="top"><div class="n">9</div><h3>Проверь и подтверди</h3></div><p>Убедись, что в аккаунте стоит нужный тариф и чаты на месте. Только после этого нажми «Подтвердить выполнение заказа».</p></div>
+  </div>
+
+  <h3 class="subhead">С заходом в аккаунт или без захода</h3>
+  <p class="sub">Способ выбираешь ты. У некоторых нейросетей доступен только один вариант, это нормально.</p>
+  <div class="grid g2">
+    <div class="card">
+      <span class="lvl">Без захода · спокойнее</span>
+      <h3>Продавец не входит в твой аккаунт</h3>
+      <p>Он присылает пошаговую инструкцию или код, и подписку подключаешь самостоятельно. Пароль никому не передаёшь.</p>
+    </div>
+    <div class="card">
+      <span class="lvl">С заходом</span>
+      <h3>Продавцу нужны логин и пароль</h3>
+      <p>Он заходит в аккаунт и оплачивает подписку изнутри. Перед этим поставь временный пароль. После оформления смени его и включи двухэтапную аутентификацию: тогда при каждом входе будет нужен код.</p>
+    </div>
+  </div>
+
+  <h3 class="subhead">Как выбрать продавца</h3>
+  <div class="minis two">
+    <div class="mini"><div class="top"><div class="n">1</div><h3>Жёлтые звёзды и много отзывов</h3></div><p>Не бери у продавцов без отзывов, с красными или оранжевыми звёздами. Нужны жёлтые звёзды и сотни отзывов.</p><a class="shot img land" href="img/9.6.png" target="_blank" rel="noopener" title="Открыть картинку целиком"><img src="img/9.6.png" alt="Плохой рейтинг" loading="lazy"><span class="cap">9.6</span></a><a class="shot img land" href="img/9.7.png" target="_blank" rel="noopener" title="Открыть картинку целиком"><img src="img/9.7.png" alt="Хороший рейтинг" loading="lazy"><span class="cap">9.7</span></a></div>
+    <div class="mini"><div class="top"><div class="n">2</div><h3>На площадке от года</h3></div><p>Смотри, сколько продавец работает на сайте: «на сайте 2 года», «3 года». Новичков лучше пропускать.</p><a class="shot img land" href="img/9.8.png" target="_blank" rel="noopener" title="Открыть картинку целиком"><img src="img/9.8.png" alt="Продавец на сайте 2 года" loading="lazy"><span class="cap">9.8</span></a></div>
+    <div class="mini"><div class="top"><div class="n">3</div><h3>В описании — личный аккаунт</h3></div><p>В объявлении должно быть «на ваш аккаунт» или «личный аккаунт». Общие аккаунты не бери: там чужие люди и чаты.</p><a class="shot img land" href="img/9.9.png" target="_blank" rel="noopener" title="Открыть картинку целиком"><img src="img/9.9.png" alt="Личный аккаунт в описании" loading="lazy"><span class="cap">9.9</span></a><a class="shot img land" href="img/9.10.png" target="_blank" rel="noopener" title="Открыть картинку целиком"><img src="img/9.10.png" alt="Общий аккаунт — не брать" loading="lazy"><span class="cap">9.10</span></a></div>
+    <div class="mini"><div class="top"><div class="n">4</div><h3>Есть гарантия</h3></div><p>Бери только объявления, где указана гарантия, лучше на весь срок подписки.</p><a class="shot img land" href="img/9.11.png" target="_blank" rel="noopener" title="Открыть картинку целиком"><img src="img/9.11.png" alt="Гарантия в объявлении" loading="lazy"><span class="cap">9.11</span></a></div>
+  </div>
+  <div class="mini wide-ex" style="margin-top:16px"><div class="top"><div class="n">✓</div><h3>Пример хорошего объявления</h3></div><p>Личный аккаунт, есть гарантия, продавец три года на сайте, много отзывов и жёлтые звёзды. Такому можно писать.</p><a class="shot img land" href="img/9.12.png" target="_blank" rel="noopener" title="Открыть картинку целиком"><img src="img/9.12.png" alt="Пример хорошего объявления" loading="lazy"><span class="cap">пример</span></a></div>
+  <div class="callout warn" style="margin-top:18px"><div class="ic">🏷️</div><div><h3>Слишком дешёвые предложения пропускай</h3><p>Оптимально брать среднюю цену у продавца с хорошими отзывами. Если что-то в описании смущает, просто иди к другому продавцу.</p></div></div>
+
+  <h3 class="subhead">Напиши продавцу до оплаты</h3>
+  <p class="sub">Вот вопросы, которые стоит задать, можно прямо скопировать. Самый важный — четвёртый, про чаты. Не стесняйся написать 5–10 продавцам и выбрать того, кто отвечает подробно. Заодно проверишь, что продавец на месте: зелёная отметка «онлайн» не значит, что он не занят другим покупателем.</p>
+  <div class="checklist asklist">
+    <div class="check"><div class="mark">1</div><p>Какие действия мне нужно сделать при способе без захода в аккаунт?</p></div>
+    <div class="check"><div class="mark">2</div><p>Даёте ли гарантию на весь срок подписки?</p></div>
+    <div class="check"><div class="mark">3</div><p>Если с подпиской что-то случится, сделаете бесплатную замену?</p></div>
+    <div class="check"><div class="mark">4</div><p><strong>Все ли мои чаты останутся в аккаунте и не удалятся ли они после окончания подписки?</strong></p></div>
+    <div class="check"><div class="mark">5</div><p>Продление существующего аккаунта или новый? Личная подписка или общий доступ? На какой срок?</p></div>
+  </div>
+
+  <div class="callout warn" style="margin-top:18px"><div class="ic">⚖️</div><div><h3>Если подписка не пришла или продавец пропал</h3><p>Не подтверждай заказ. Сначала напиши продавцу в чат: большинство вопросов решается там. Если не помогло, открой спор в заказе или напиши в раздел «Помощь» площадки, поддержка работает круглосуточно. Приложи скриншоты переписки.</p></div></div>
+  <div class="mini" style="margin-top:16px"><div class="top"><div class="n">?</div><h3>Где поддержка FunPay</h3></div><p>Вверху сайта есть раздел «Помощь». Поддержка отвечает круглосуточно: там открывают спор, если продавец не выполнил заказ.</p><a class="shot img land" href="img/9.13.png" target="_blank" rel="noopener" title="Открыть картинку целиком"><img src="img/9.13.png" alt="Раздел Помощь на FunPay" loading="lazy"><span class="cap">помощь</span></a></div>
+</section>
+
+<section class="wrap" id="apple">
+  <span class="sec-tag">10 — Способы оплаты</span>
+  <h2>Способ 6. Apple ID Турции или США и подарочная карта</h2>
+  <div class="reqs"><span class="req warn">🍏 Только для iPhone</span><span class="req warn">👤 Нужен Apple ID США или Турции</span><span class="req ok">🔁 Продлевается сама с баланса Apple</span></div>
+  <p class="sub">Для айфона. Подписка выходит ≈ 1 800–2 300 ₽: подарочные карты на Plati и GGSel продают с комиссией, например карта на $15 стоит ≈ 1 800 ₽. Всё равно дешевле, чем через Озон или МТС. Подходят Турция или США. Я сама плачу через Apple ID США, так удобнее. Турцию берут, потому что подписки в лирах бывают дешевле. Подписка продлевается сама, пока на балансе есть деньги.</p>
+  <h3 class="subhead">1. Проверь регион Apple ID</h3>
+  <div class="minis vpn">
+    <div class="mini"><div class="top"><div class="n">1</div><h3>Открой App Store</h3></div><a class="shot img land" href="img/10.1.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.1 целиком"><img src="img/10.1.jpg" alt="Значок App Store" loading="lazy"><span class="cap">10.1</span></a></div>
+    <div class="mini"><div class="top"><div class="n">2</div><h3>Нажми на аватарку</h3></div><p>Она в правом верхнем углу.</p><a class="shot img land" href="img/10.2.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.2 целиком"><img src="img/10.2.jpg" alt="Аватарка в App Store" loading="lazy"><span class="cap">10.2</span></a></div>
+    <div class="mini"><div class="top"><div class="n">3</div><h3>Нажми на своё имя</h3></div><p>Откроются информация об аккаунте и платежи.</p><a class="shot img" href="img/10.3.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.3 целиком"><img src="img/10.3.jpg" alt="Аккаунт Apple" loading="lazy"><span class="cap">10.3</span></a></div>
+    <div class="mini"><div class="top"><div class="n">4</div><h3>Проверь страну и оплату</h3></div><p>«Страна/регион» должна быть <strong>США</strong>, а «Способы оплаты» — «Нет». Если регион другой, смени его, как в блоке <a href="#apps">«Приложения на телефон»</a>.</p><a class="shot img" href="img/10.4.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.4 целиком"><img src="img/10.4.jpg" alt="Настройки учётной записи: страна США" loading="lazy"><span class="cap">10.4</span></a></div>
+  </div>
+  <div class="callout" style="margin:18px 0"><div class="ic">🧪</div><div><h3>Сначала попробуй на $2</h3><p>В первый раз купи карту на минимальную сумму, 2$. Активируй её и убедись, что деньги пришли на баланс Apple. Только после этого покупай карту на нужную сумму.</p></div></div>
+  <h3 class="subhead">2. Купи подарочную карту на Plati</h3>
+  <div class="minis vpn">
+    <div class="mini"><div class="top"><div class="n">5</div><h3>Открой Plati и нажми на лупу</h3></div><p>Сайт <a href="https://plati.market" target="_blank" rel="noopener">plati.market</a>, поиск в правом верхнем углу.</p><a class="shot img" href="img/10.5.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.5 целиком"><img src="img/10.5.jpg" alt="Главная Plati" loading="lazy"><span class="cap">10.5</span></a></div>
+    <div class="mini"><div class="top"><div class="n">6</div><h3>Найди App Store & iTunes</h3></div><p>Напиши «Подарочная карта» и выбери категорию <strong>App Store &amp; iTunes</strong>.</p><a class="shot img land" href="img/10.6.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.6 целиком"><img src="img/10.6.jpg" alt="Поиск подарочной карты" loading="lazy"><span class="cap">10.6</span></a></div>
+    <div class="mini"><div class="top"><div class="n">7</div><h3>Открой «Регион аккаунта»</h3></div><p>В блоке «Пополнение App Store &amp; iTunes».</p><a class="shot img" href="img/10.7.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.7 целиком"><img src="img/10.7.jpg" alt="Поле «Регион аккаунта»" loading="lazy"><span class="cap">10.7</span></a></div>
+    <div class="mini"><div class="top"><div class="n">8</div><h3>Выбери US</h3></div><p>Регион карты должен совпадать с регионом Apple ID.</p><a class="shot img" href="img/10.8.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.8 целиком"><img src="img/10.8.jpg" alt="Выбор региона US" loading="lazy"><span class="cap">10.8</span></a></div>
+    <div class="mini"><div class="top"><div class="n">9</div><h3>Выбери продавца</h3></div><p>Смотри на число продаж: чем больше, тем надёжнее.</p><a class="shot img" href="img/10.9.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.9 целиком"><img src="img/10.9.jpg" alt="Список предложений" loading="lazy"><span class="cap">10.9</span></a></div>
+    <div class="mini"><div class="top"><div class="n">10</div><h3>Открой карточку и отзывы</h3></div><p>Нажми на «Отзывы», чтобы проверить продавца.</p><a class="shot img" href="img/10.10.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.10 целиком"><img src="img/10.10.jpg" alt="Карточка товара и отзывы" loading="lazy"><span class="cap">10.10</span></a></div>
+    <div class="mini"><div class="top"><div class="n">11</div><h3>Посмотри свежие отзывы</h3></div><p>Хорошо, если отзывы оставляют каждый час и они положительные.</p><a class="shot img" href="img/10.11.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.11 целиком"><img src="img/10.11.jpg" alt="Свежие отзывы" loading="lazy"><span class="cap">10.11</span></a></div>
+    <div class="mini"><div class="top"><div class="n">12</div><h3>Прочитай описание</h3></div><p>Карта работает только для аккаунтов США. При ошибке активации продавец может попросить видео покупки, так что не удаляй письма и скрины.</p><a class="shot img" href="img/10.12.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.12 целиком"><img src="img/10.12.jpg" alt="Описание товара" loading="lazy"><span class="cap">10.12</span></a></div>
+    <div class="mini"><div class="top"><div class="n">13</div><h3>Выбери номинал</h3></div><p>Первый раз бери 2$, чтобы проверить. Когда всё сработало, выбирай сумму под подписку, например <strong>15$ (USD)</strong>: цена в рублях сразу обновится, на скрине 1 817 ₽.</p><a class="shot img" href="img/10.13.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.13 целиком"><img src="img/10.13.jpg" alt="Выбор номинала 15$" loading="lazy"><span class="cap">10.13</span></a></div>
+    <div class="mini"><div class="top"><div class="n">14</div><h3>Подтверди и нажми «Купить»</h3></div><p>Поставь галочку под описанием: ею подтверждаешь, что аккаунт Apple относится к США. Потом нажми «Купить сейчас».</p><a class="shot img" href="img/10.14.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.14 целиком"><img src="img/10.14.jpg" alt="Галочка и кнопка «Купить»" loading="lazy"><span class="cap">10.14</span></a></div>
+    <div class="mini"><div class="top"><div class="n">15</div><h3>Выбери СБП и укажи почту</h3></div><p>На эту почту придёт код. Введи число с картинки и нажми «Оплатить».</p><a class="shot img" href="img/10.15.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.15 целиком"><img src="img/10.15.jpg" alt="Способ оплаты и почта" loading="lazy"><span class="cap">10.15</span></a></div>
+    <div class="mini"><div class="top"><div class="n">16</div><h3>Выбери свой банк</h3></div><p>Откроется страница оплаты по СБП. Нажми на свой банк.</p><a class="shot img" href="img/10.16.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.16 целиком"><img src="img/10.16.jpg" alt="Выбор банка" loading="lazy"><span class="cap">10.16</span></a></div>
+    <div class="mini"><div class="top"><div class="n">17</div><h3>Перейди в приложение банка</h3></div><p>Нажми «В приложении банка».</p><a class="shot img" href="img/10.17.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.17 целиком"><img src="img/10.17.jpg" alt="Переход в банк" loading="lazy"><span class="cap">10.17</span></a></div>
+    <div class="mini"><div class="top"><div class="n">18</div><h3>Оплати в банке</h3></div><p>Проверь сумму и подтверди платёж.</p><a class="shot img" href="img/10.18.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.18 целиком"><img src="img/10.18.jpg" alt="Оплата в банке" loading="lazy"><span class="cap">10.18</span></a></div>
+    <div class="mini"><div class="top"><div class="n">19</div><h3>Дождись «Оплата завершена»</h3></div><p>Письмо с картой уйдёт на почту. Код можно найти и в личном кабинете Plati.</p><a class="shot img land" href="img/10.19.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.19 целиком"><img src="img/10.19.jpg" alt="Оплата завершена" loading="lazy"><span class="cap">10.19</span></a></div>
+    <div class="mini"><div class="top"><div class="n">20</div><h3>Найди код в письме</h3></div><p>Письмо от Plati «Ваша покупка». Скопируй строку <strong>Code</strong> и никому её не пересылай.</p><a class="shot img" href="img/10.20.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.20 целиком"><img src="img/10.20.jpg" alt="Письмо с кодом карты" loading="lazy"><span class="cap">10.20</span></a></div>
+  </div>
+  <h3 class="subhead">3. Активируй карту в App Store</h3>
+  <div class="minis vpn">
+    <div class="mini"><div class="top"><div class="n">21</div><h3>Открой App Store → аватарка</h3></div><p>Снова в правый верхний угол.</p><a class="shot img" href="img/10.21.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.21 целиком"><img src="img/10.21.jpg" alt="Аватарка в App Store" loading="lazy"><span class="cap">10.21</span></a></div>
+    <div class="mini"><div class="top"><div class="n">22</div><h3>Нажми «Активировать код»</h3></div><p>Кнопка внизу экрана аккаунта.</p><a class="shot img" href="img/10.22.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.22 целиком"><img src="img/10.22.jpg" alt="Кнопка «Активировать код»" loading="lazy"><span class="cap">10.22</span></a></div>
+    <div class="mini"><div class="top"><div class="n">23</div><h3>Выбери «Ввести код вручную»</h3></div><p>Или отсканируй код камерой.</p><a class="shot img" href="img/10.23.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.23 целиком"><img src="img/10.23.jpg" alt="Ввести код вручную" loading="lazy"><span class="cap">10.23</span></a></div>
+    <div class="mini"><div class="top"><div class="n">24</div><h3>Вставь код и нажми «Активировать»</h3></div><p>Код из письма Plati.</p><a class="shot img land" href="img/10.24.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.24 целиком"><img src="img/10.24.jpg" alt="Ввод кода" loading="lazy"><span class="cap">10.24</span></a></div>
+    <div class="mini"><div class="top"><div class="n">25</div><h3>Если «Не удалось подключиться»</h3></div><p>Нажми «Повторить». Активация иногда срабатывает не с первого раза.</p><a class="shot img land" href="img/10.25.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.25 целиком"><img src="img/10.25.jpg" alt="Не удалось подключиться" loading="lazy"><span class="cap">10.25</span></a></div>
+    <div class="mini"><div class="top"><div class="n">26</div><h3>Проверь баланс</h3></div><p>Под именем появится «Баланс средств на счёте» в долларах.</p><a class="shot img" href="img/10.26.jpg" target="_blank" rel="noopener" title="Открыть скрин 10.26 целиком"><img src="img/10.26.jpg" alt="Баланс пополнен" loading="lazy"><span class="cap">10.26</span></a></div>
+  </div>
+  <h3 class="subhead">4. Оформи подписку</h3>
+  <div class="minis vpn">
+    <div class="mini"><div class="top"><div class="n">27</div><h3>Оплати подписку в приложении</h3></div><p>Скачай ChatGPT, Claude или Gemini из App Store, войди в свой аккаунт нейросети и нажми Upgrade. Оплата спишется с баланса Apple. В Gemini так же покупается Google AI Pro, $19,99 в месяц.</p></div>
+    <div class="mini"><div class="top"><div class="n">28</div><h3>Следи за балансом</h3></div><p>Пополняй баланс за пару дней до продления, иначе подписка отключится. Отменить продление можно в Настройках → твоё имя → Подписки.</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="card">
+  <span class="sec-tag">11 — Способы оплаты</span>
+  <h2>Способ 7. Своя зарубежная виртуальная карта</h2>
+  <div class="reqs"><span class="req warn">👤 Нужен готовый аккаунт</span><span class="req warn">💳 Нужно выпустить карту</span><span class="req ok">🔁 Продлевается сама</span></div>
+  <p class="sub">Выпускаешь зарубежную виртуальную карту в Telegram-боте, пополняешь рублями по СБП и платишь ею на сайте нейросети как обычной картой. Подходит для ChatGPT, Claude и Gemini и продлевается сама. ChatGPT Plus выходит ≈ 1 600–2 200 ₽ в месяц плюс выпуск карты ≈ 1 000–3 000 ₽. Ниже пример на «Плати по миру», в WantToPay и Wayment шаги почти такие же.</p>
+  <div class="callout" style="margin-bottom:14px"><div class="ic">💳</div><div><h3>Выбери карту, которая подходит тебе</h3><p>Сервисов виртуальных карт несколько, и можно взять тот, который больше нравится. Шаги у всех почти одинаковые. Перед выпуском сравни стоимость карты, комиссию за пополнение, плату за обслуживание и способ пополнения: удобнее всего по СБП с российской карты.</p></div></div>
+  <div class="sitelinks">
+    <a href="https://t.me/platipomiru_bot" target="_blank" rel="noopener">🌍 Плати по миру <small>@platipomiru_bot</small></a>
+    <a href="https://t.me/WantToPayBot" target="_blank" rel="noopener">💳 WantToPay <small>@WantToPayBot</small></a>
+    <a href="https://t.me/waymentbot" target="_blank" rel="noopener">🧭 Wayment <small>@waymentbot</small></a>
+  </div>
+  <h3 class="subhead">1. Выпусти карту</h3>
+  <div class="card textsteps-card">
+    <ol class="textsteps">
+      <li><b>Открой бота</b> <a href="https://t.me/platipomiru_bot" target="_blank" rel="noopener">@platipomiru_bot</a> в Telegram → «Оформить карту». Откроется мини-приложение, ничего скачивать не нужно.</li>
+      <li><b>Войди по почте</b> Укажи почту и введи код из письма. Документы на этом шаге не просят.</li>
+      <li><b>Выбери тариф «Для подписок»</b> ≈ 2 990 ₽ за год. Имя и фамилию пиши латиницей, как в загранпаспорте.</li>
+      <li><b>Оплати выпуск по СБП</b> С карты любого российского банка. Обычно карта готова через 1–2 минуты.</li>
+      <li><b>Пополни баланс с запасом</b> По СБП, рубли пересчитаются в доллары. На подписку за $20 положи около $25: сервис может временно заблокировать небольшую сумму для проверки карты, а за каждую оплату берётся комиссия ≈ $0,3.</li>
+      <li><b>Скопируй реквизиты и адрес</b> В личном кабинете: номер карты, срок, CVV и платёжный адрес. Адрес бери именно оттуда, не придумывай свой.</li>
+    </ol>
+  </div>
+  <h3 class="subhead">2. Оплати подписку</h3>
+  <div class="card textsteps-card">
+    <ol class="textsteps">
+      <li><b>ChatGPT</b> Включи VPN → <a href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a> → значок профиля → «Upgrade plan» → Plus → введи данные карты и адрес → «Подписаться».<span class="route">Тариф Go и пробную подписку за $0 виртуальными картами обычно оплатить не получается</span></li>
+      <li><b>Claude</b> <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> → Settings → Billing → Pro → данные карты и тот же адрес.</li>
+      <li><b>Gemini</b> Сначала зайди в <a href="https://pay.google.com" target="_blank" rel="noopener">pay.google.com</a> и создай новый платёжный профиль со страной карты, не российский, и добавь туда карту. Потом <a href="https://one.google.com" target="_blank" rel="noopener">one.google.com</a> → Google AI Pro → оплати из этого профиля.</li>
+      <li><b>Подтверди платёж</b> Код 3-D Secure придёт в бот карты. После оплаты проверь тариф в настройках аккаунта.</li>
+    </ol>
+    <p class="small" style="margin-top:12px">Подписка будет продлеваться сама каждый месяц, пока на карте есть деньги. Пополняй баланс за пару дней до списания.</p>
+  </div>
+  <div class="callout warn" style="margin-top:18px"><div class="ic">🚫</div><div><h3>Если платёж отклонили</h3><p>Чаще всего не совпадает платёжный адрес с данными карты, VPN часто меняет страну или было много попыток подряд. Проверь адрес, оставь один сервер VPN и попробуй ещё раз через какое-то время. За отклонённые попытки тоже может списываться комиссия, поэтому не жми «Оплатить» по десять раз. Не помогло — пиши в поддержку сервиса карты.</p></div></div>
+</section>
+
+<section class="wrap" id="middle">
+  <span class="sec-tag">12 — Способы оплаты</span>
+  <h2>Способ 8. Друг за границей</h2>
+  <div class="reqs"><span class="req warn">👤 Нужен готовый аккаунт</span><span class="req warn">🤝 Нужен друг с зарубежной картой</span><span class="req ok">🔁 Продлевается сама, пока карта действует</span></div>
+  <div class="card">
+    <span class="lvl">Друг за границей · $20 по курсу</span>
+    <h3>Самый дешёвый вариант</h3>
+    <ul class="breakdown">
+      <li>Друг входит в твой аккаунт с твоего устройства или вы созваниваетесь</li>
+      <li>Вводит свою карту в форме оплаты</li>
+      <li>Ты переводишь ему сумму по курсу</li>
+      <li>Подписка продлевается сама, пока карта друга действует</li>
+    </ul>
+    <p style="margin-top:12px">Пароль другу лучше не давать: пусть вводит карту, пока аккаунт открыт на твоём устройстве.</p>
+  </div>
+</section>
+
+<section class="wrap" id="agg">
+  <span class="sec-tag">13 — Способы оплаты</span>
+  <h2>Способ 9. Агрегаторы: без VPN и без зарубежной карты</h2>
+  <div class="reqs"><span class="req ok">✅ Не нужны ни аккаунт, ни VPN</span><span class="req warn">⚠️ Это не официальная подписка</span></div>
+  <p class="sub">Регистрируешься по ссылке, платишь рублями и пользуешься из России напрямую. Это не официальные подписки, но для большинства задач их хватает.</p>
+  <div class="grid g2 agg">
+    <div class="card">
+      <span class="nov">Без VPN</span>
+      <h3>SYNTX — всё в одном месте</h3>
+      <div class="cost"><b>от 890 ₽</b><span>в месяц · Pro 1 690 ₽ · есть бесплатные токены</span></div>
+      <p>90+ нейросетей: ChatGPT, Claude, Gemini, Nano Banana, Veo, Kling. Открой бот по ссылке → «Старт» → выбери модель → пиши запрос.</p>
+      <a class="btn blue" href="https://t.me/syntxaibot?start=aff_177818188" target="_blank" rel="noopener">Открыть SYNTX →</a>
+    </div>
+    <div class="card">
+      <span class="nov">Без VPN</span>
+      <h3>AI Seven — для контента и блога</h3>
+      <div class="cost"><b>от 1 800 ₽</b><span>в месяц · или 10 000 токенов за 100 ₽</span></div>
+      <p>ChatGPT, Claude и Gemini плюс карусели, свой ИИ-аватар, контент-завод, мультики и сайт-визитка.</p>
+      <a class="btn" href="https://telegram.me/Ai_Sevenbot?start=ref_177818188" target="_blank" rel="noopener">Открыть AI Seven →</a>
+    </div>
+    <div class="card">
+      <span class="nov">Без VPN</span>
+      <h3>Doitong — для мультиков</h3>
+      <div class="cost"><b>от 2 159 ₽</b><span>в месяц · есть бесплатный старт</span></div>
+      <p>Сценарии, персонажи, сториборды, озвучка и склейка. Внутри есть GPT и Gemini для текста.</p>
+      <a class="btn pink" href="https://doitong.onelink.me/4cfC/mh3xsumx?af_xp=custom&amp;pid=user_referral&amp;ref=MAGNIFICENT2261&amp;af_sub1=MAGNIFICENT2261" target="_blank" rel="noopener">Открыть Doitong →</a>
+    </div>
+    <div class="card">
+      <span class="nov">Без VPN</span>
+      <h3>Givon — картинки, видео, аватары</h3>
+      <div class="cost"><b>от 990 ₽</b><span>в месяц · 30 токенов на старт · −10% по ссылке</span></div>
+      <p>65+ моделей: Nano Banana Pro, Veo, Kling, Seedance, ChatGPT Images. Оживляет фото и держит одного персонажа во всех роликах.</p>
+      <a class="btn" href="https://givon.ai/r/Yana1515" target="_blank" rel="noopener">Открыть Givon −10% →</a>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="safety">
+  <span class="sec-tag">14 — Безопасность</span>
+  <h2>Как не потерять аккаунт</h2>
+  <div class="checklist">
+    <div class="check"><div class="mark">✓</div><p>Отдельная почта под нейросети с двухэтапной защитой</p></div>
+    <div class="check"><div class="mark">✓</div><p>Заходишь всегда с VPN одной и той же страны</p></div>
+    <div class="check"><div class="mark">✓</div><p>Никогда не покупаешь общие аккаунты</p></div>
+    <div class="check"><div class="mark">✓</div><p>Не передаёшь пароль. Если продавцу он нужен — временный пароль, потом сменить</p></div>
+    <div class="check"><div class="mark">✓</div><p>Важные чаты и файлы периодически сохраняешь у себя</p></div>
+    <div class="check"><div class="mark">✓</div><p>Первый раз платишь за месяц, а не за год</p></div>
+  </div>
+  <div class="callout warn" style="margin-top:18px"><div class="ic">⚠️</div><div><h3>Честно о рисках</h3><p>Все способы обходят ограничения самих сервисов, и аккаунт из России теоретически могут заблокировать. На практике это редкость, но не храни в нейросети то, что страшно потерять.</p></div></div>
+</section>
+
+<section class="wrap" id="faq">
+  <span class="sec-tag">15 — Если что-то пошло не так</span>
+  <h2>Частые проблемы и решения</h2>
+  <div class="grid g2">
+    <div class="card"><h3>Сайт пишет «недоступно в вашей стране»</h3><p>VPN не включён или сервер в неподдерживаемой стране. Смени сервер на США или Европу, очисти куки и обнови страницу.</p></div>
+    <div class="card"><h3>Карта не прошла</h3><p>Чаще всего не совпадает страна адреса и страна карты или на балансе нет запаса. Пополни карту и введи адрес из бота карты.</p></div>
+    <div class="card"><h3>Код с Озона или МТС не пришёл</h3><p>Проверь «Спам» и подожди до 3 часов. Потом пиши в поддержку Озон Банка или МТС из приложения, с номером заказа.</p></div>
+    <div class="card"><h3>Подписка легла не на тот аккаунт</h3><p>В момент активации был открыт другой аккаунт. Сразу пиши продавцу или в поддержку сервиса, через который шла оплата.</p></div>
+    <div class="card"><h3>Подписка не продлилась</h3><p>С ваучерами, ботом и маркетплейсами автопродления нет, подписку нужно покупать заново. С картой или Apple проверь баланс в день списания.</p></div>
+    <div class="card"><h3>Аккаунт заблокировали</h3><p>Напиши в поддержку нейросети с той же почты. Если оплата была через маркетплейс, открой спор, пока получение не подтверждено.</p></div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="footbar">
+    <div class="accent">готово ✦</div>
+    <h3>Подписка оформлена, можно творить</h3>
+    <p>Если какой-то шаг выглядит у тебя иначе или способ перестал работать, напиши мне, и я обновлю гайд.</p>
+  </div>
+  <p class="disclaimer">Гайд актуален на 10 октября 2026 года. Цены, интерфейсы и условия OpenAI, Google, Anthropic и платёжных сервисов меняются, поэтому сверяй итоговую сумму перед оплатой. Ссылки на агрегаторы — партнёрские. Это информационный материал, а не финансовая или юридическая рекомендация. Я не несу ответственности за действия продавцов, площадок и сервисов, упомянутых в гайде, и за результат оплаты — я только предоставляю информацию. Решение о покупке ты принимаешь самостоятельно.</p>
+  <p class="legal-links">Минаева Яна Витальевна · самозанятая · ИНН 774335456117 · <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a><br><a href="#oferta">Публичная оферта</a> · <a href="#privacy">Политика конфиденциальности</a> · <a href="#pdp">Политика обработки персональных данных</a></p>
+<div class="legal" id="oferta"><div class="lbox"><a class="lclose" href="#faq" aria-label="Закрыть">×</a><h3>Публичная оферта</h3><p class="ld">на предоставление доступа к информационному материалу · редакция от 10 октября 2026 г.</p><h4>1. Общие положения</h4><p>1.1. Минаева Яна Витальевна, плательщик налога на профессиональный доход (самозанятая), ИНН 774335456117 (далее — «Продавец»), предлагает любому дееспособному лицу, достигшему 18 лет (далее — «Покупатель»), заключить договор на условиях настоящей оферты (ст. 435 и п. 2 ст. 437 ГК РФ).</p><p>1.2. Акцептом оферты является оплата Гайда. С момента оплаты договор считается заключённым, а Покупатель — согласившимся со всеми условиями оферты, Политикой конфиденциальности и Политикой обработки персональных данных (п. 3 ст. 438 ГК РФ).</p><h4>2. Предмет договора</h4><p>2.1. Продавец предоставляет Покупателю доступ к электронному информационному материалу «Оплата ChatGPT, Gemini и Claude из России по шагам» в виде веб-страницы (далее — «Гайд»), а Покупатель оплачивает его.</p><p>2.2. <strong>Гайд — это пошаговая инструкция.</strong> Подписки на нейросети, VPN, виртуальные карты, подарочные карты, ваучеры и услуги продавцов на маркетплейсах в стоимость Гайда не входят. Покупатель оплачивает их отдельно и самостоятельно третьим лицам по их ценам. Продавец эти товары и услуги не продаёт и не является представителем их владельцев.</p><p>2.3. Упомянутые в Гайде сервисы, площадки и продавцы приведены как примеры. Выбор способа оплаты, сервиса и продавца Покупатель делает самостоятельно.</p><h4>3. Цена и оплата</h4><p>3.1. Стоимость Гайда — 690 (шестьсот девяносто) рублей. НДС не облагается в связи с применением Продавцом налога на профессиональный доход.</p><p>3.2. Оплата принимается через платёжный сервис Prodamus (ООО «Продамус») банковской картой или по СБП. Обязательство по оплате считается исполненным в момент зачисления денег.</p><p>3.3. Чек формируется в приложении «Мой налог» и направляется Покупателю на указанную при оплате почту или телефон.</p><h4>4. Предоставление доступа</h4><p>4.1. Ссылка на Гайд направляется на адрес электронной почты, указанный при оплате, и/или показывается на странице после оплаты — как правило, сразу, но не позднее 24 часов с момента оплаты.</p><p>4.2. Если ссылка не пришла, Покупатель проверяет папку «Спам» и пишет на <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a>, указав почту, с которой оплачивал.</p><p>4.3. Обязательства Продавца считаются исполненными в момент направления Покупателю ссылки на Гайд.</p><p>4.4. Продавец вправе обновлять и дополнять Гайд. Актуальная версия доступна по той же ссылке, пока Продавец поддерживает Гайд.</p><p>4.5. Для открытия Гайда нужен браузер и доступ в интернет. Для выполнения шагов из Гайда в отношении зарубежных сервисов Покупателю может понадобиться VPN, который он приобретает самостоятельно.</p><h4>5. Права на Гайд</h4><p>5.1. Гайд является результатом интеллектуальной деятельности Продавца. Покупатель получает право использовать его для личных некоммерческих целей.</p><p>5.2. Запрещено передавать ссылку на Гайд третьим лицам, публиковать, копировать, перепродавать или иным образом распространять Гайд полностью или частично без письменного согласия Продавца.</p><h4>6. Возврат</h4><p>6.1. Если доступ к Гайду не был предоставлен по вине Продавца, Покупатель вправе потребовать полного возврата оплаты, написав на <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a>.</p><p>6.2. Если Покупатель не может открыть Гайд по техническим причинам, Продавец помогает решить проблему, а если это невозможно — возвращает деньги.</p><p>6.3. Гайд — цифровой информационный материал, который после предоставления доступа нельзя вернуть. Поэтому после направления ссылки возврат оплаты не производится, кроме случаев, предусмотренных законодательством РФ.</p><p>6.4. Возврат производится тем же способом, которым была произведена оплата, в течение 10 рабочих дней с момента получения запроса.</p><h4>7. Ответственность</h4><p>7.1. Гайд носит информационный характер и не является финансовой, юридической или иной профессиональной консультацией.</p><p>7.2. Продавец не гарантирует, что описанные способы будут работать у каждого Покупателя и в любое время: условия OpenAI, Google, Anthropic, банков, платёжных сервисов, маркетплейсов и продавцов могут меняться без участия Продавца.</p><p>7.3. Продавец не несёт ответственности за действия и бездействие третьих лиц (продавцов, площадок, банков, сервисов виртуальных карт, VPN, разработчиков нейросетей), за блокировку аккаунтов, отказ в оплате, потерю денег при расчётах с третьими лицами, а также за последствия решений, принятых Покупателем.</p><p>7.4. Ответственность Продавца по договору в любом случае ограничена стоимостью Гайда.</p><h4>8. Персональные данные</h4><p>8.1. Обработка персональных данных Покупателя ведётся в соответствии с <a href="#pdp">Политикой обработки персональных данных</a> и <a href="#privacy">Политикой конфиденциальности</a>.</p><h4>9. Споры и заключительные положения</h4><p>9.1. Договор регулируется законодательством Российской Федерации.</p><p>9.2. Споры решаются путём переговоров. Претензии направляются на <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a>, срок ответа — 10 рабочих дней. Если спор не урегулирован, он рассматривается в суде в порядке, установленном законодательством РФ.</p><p>9.3. Продавец вправе изменять оферту. Новая редакция действует с момента размещения и не распространяется на договоры, заключённые ранее.</p><h4>10. Реквизиты Продавца</h4><p>Минаева Яна Витальевна<br>Плательщик налога на профессиональный доход (самозанятая)<br>ИНН 774335456117<br>Email: <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a></p></div></div>
+<div class="legal" id="privacy"><div class="lbox"><a class="lclose" href="#faq" aria-label="Закрыть">×</a><h3>Политика конфиденциальности</h3><p class="ld">Редакция от 10 октября 2026 г.</p>
+<h4>1. Кто отвечает за данные</h4><p>Оператор персональных данных — Минаева Яна Витальевна, плательщик налога на профессиональный доход (самозанятая), ИНН 774335456117 (далее — «Оператор»). Связаться по любым вопросам о данных: <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a>.</p><p>Политика действует для страниц бесплатной статьи и платного гайда «Оплата ChatGPT, Gemini и Claude из России» (далее — «Материалы») и для покупки платного гайда.</p><h4>2. Какие данные собираются</h4><p>На самих страницах Материалов никакие формы не заполняются, и Оператор не собирает данные посетителей.</p><p>При покупке гайда в платёжной форме сервиса Prodamus указываются: имя, адрес электронной почты, номер телефона. Эти данные Оператор получает от Prodamus вместе с информацией о заказе (сумма, дата, статус оплаты).</p><p>Данные банковской карты Оператор не получает и не хранит: их обрабатывают Prodamus и банк в защищённом режиме.</p><h4>3. Зачем нужны данные</h4><p>— чтобы принять оплату и отправить доступ к гайду;</p><p>— чтобы сформировать и отправить чек через приложение «Мой налог»;</p><p>— чтобы ответить на вопросы и помочь, если с доступом что-то пошло не так;</p><p>— чтобы сообщить об обновлениях купленного гайда.</p><p>Рекламные рассылки без отдельного согласия не отправляются.</p><h4>4. Кому передаются данные</h4><p>Только тем, без кого невозможно провести оплату и выдать чек: сервису Prodamus (ООО «Продамус»), банку, который принимает платёж, и ФНС России через «Мой налог». Данные не продаются и не передаются за границу.</p><h4>5. Cookie и сервисы на странице</h4><p>Оператор не использует собственные cookie, счётчики и системы аналитики. Страницы размещены на платформе Claude (Anthropic), которая может использовать технические cookie для работы сайта по своим правилам. Ссылки на сторонние сайты и Telegram-ботов ведут на ресурсы, за правила которых Оператор не отвечает.</p><h4>6. Сколько хранятся данные</h4><p>Пока это нужно для целей из пункта 3, но не дольше 3 лет после покупки, если закон не требует хранить дольше. По истечении срока или после отзыва согласия данные удаляются.</p><h4>7. Твои права</h4><p>Ты можешь узнать, какие данные о тебе есть, попросить исправить или удалить их и отозвать согласие. Для этого напиши на <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a>. Ответ — в течение 10 рабочих дней.</p><h4>8. Изменения</h4><p>Оператор может обновлять Политику. Актуальная редакция всегда находится на этой странице.</p></div></div>
+<div class="legal" id="pdp"><div class="lbox"><a class="lclose" href="#faq" aria-label="Закрыть">×</a><h3>Политика обработки персональных данных</h3><p class="ld">Редакция от 10 октября 2026 г.</p>
+<h4>1. Общие положения</h4><p>1.1. Настоящая Политика составлена в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных» и определяет порядок обработки персональных данных и меры по их защите.</p><p>1.2. Оператор — Минаева Яна Витальевна, плательщик налога на профессиональный доход (самозанятая), ИНН 774335456117. Контактный адрес: <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a>.</p><p>1.3. Политика применяется ко всем персональным данным, которые Оператор получает при продаже платного гайда «Оплата ChatGPT, Gemini и Claude из России» (далее — «Гайд»).</p><h4>2. Основные понятия</h4><p>Персональные данные — любая информация, относящаяся прямо или косвенно к определённому или определяемому физическому лицу (субъекту персональных данных). Обработка — любое действие с персональными данными: сбор, запись, систематизация, накопление, хранение, уточнение, использование, передача, блокирование, удаление, уничтожение.</p><h4>3. Цели обработки</h4><p>3.1. Заключение и исполнение договора на покупку Гайда, предоставление доступа к нему.</p><p>3.2. Формирование и направление кассового чека в соответствии с законодательством о налоге на профессиональный доход.</p><p>3.3. Связь с покупателем по вопросам доступа, оплаты и обновлений Гайда.</p><h4>4. Состав данных и категории субъектов</h4><p>4.1. Субъекты — покупатели Гайда.</p><p>4.2. Обрабатываются: имя, адрес электронной почты, номер телефона, сведения о заказе и оплате.</p><p>4.3. Специальные категории персональных данных и биометрические данные не обрабатываются.</p><h4>5. Правовые основания</h4><p>5.1. Исполнение договора, стороной которого является субъект (п. 5 ч. 1 ст. 6 152-ФЗ).</p><p>5.2. Исполнение обязанностей, возложенных на Оператора законодательством РФ, в том числе налоговым (п. 2 ч. 1 ст. 6 152-ФЗ).</p><p>5.3. Согласие субъекта, которое он даёт, оплачивая Гайд и указывая свои данные в платёжной форме.</p><h4>6. Порядок и условия обработки</h4><p>6.1. Обработка ведётся с использованием средств автоматизации и без них.</p><p>6.2. Данные поступают Оператору от платёжного сервиса Prodamus (ООО «Продамус»), через форму которого покупатель оплачивает Гайд. Данные банковских карт Оператору не передаются.</p><p>6.3. Данные передаются третьим лицам только для целей из раздела 3: ООО «Продамус», банку-эквайеру, ФНС России (приложение «Мой налог»). Трансграничная передача не осуществляется.</p><p>6.4. Запись, систематизация, накопление, хранение, уточнение и извлечение персональных данных граждан РФ ведутся с использованием баз данных, находящихся на территории РФ.</p><p>6.5. Срок обработки — до достижения целей, но не более 3 лет с момента покупки, если более долгий срок не установлен законом. Данные уничтожаются по истечении срока, при достижении целей или при отзыве согласия, если нет иных законных оснований для обработки.</p><h4>7. Меры защиты</h4><p>Оператор принимает необходимые правовые, организационные и технические меры для защиты данных от неправомерного доступа, изменения, распространения и уничтожения: ограничивает доступ к данным, использует защищённые сервисы с паролями и двухфакторной аутентификацией, не передаёт данные лицам, не участвующим в исполнении договора.</p><h4>8. Права субъекта</h4><p>8.1. Субъект вправе получить сведения об обработке своих данных, потребовать их уточнения, блокирования или уничтожения, если они неполные, устаревшие или обрабатываются незаконно, отозвать согласие и обжаловать действия Оператора в Роскомнадзоре или суде.</p><p>8.2. Запросы направляются на <a href="mailto:yana6331@ya.ru">yana6331@ya.ru</a>. Оператор отвечает в течение 10 рабочих дней с момента получения запроса.</p><h4>9. Заключительные положения</h4><p>9.1. Политика находится в открытом доступе на страницах Гайда и бесплатной статьи.</p><p>9.2. Оператор вправе вносить изменения в Политику. Новая редакция действует с момента размещения.</p></div></div>
+</footer>
+
+</body></html>
